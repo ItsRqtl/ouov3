@@ -85,12 +85,16 @@ class Typing(commands.Cog):
         if not channel.permissions_for(ctx.guild.me).send_messages:
             return await ctx.respond(
                 f"I don't have permission to send messages in {channel.mention}.",
-                # localizations={"zh-TW": f"我沒有在 {channel.mention} 中發送訊息的權限", "zh-CN": f"我没有在 {channel.mention} 中发送消息的权限"},
+                # TODO: add localization
+                # zh-TW: f"我沒有在 {channel.mention} 中發送訊息的權限"
+                # zh-CN: f"我没有在 {channel.mention} 中发送消息的权限"
             )
         if channel.id in self._channels:
             msg = await ctx.respond(
                 "Already typing in that channel.",
-                # localizations={"zh-TW": "已經在該頻道中輸入中", "zh-CN": "已经在该频道中输入中"},
+                # TODO: add localization
+                # zh-TW: "已經在該頻道輸入中"
+                # zh-CN: "已经在该频道输入中"
             )
         else:
             self._channels.append(channel.id)
@@ -98,7 +102,9 @@ class Typing(commands.Cog):
                 await f.write(orjson.dumps(self._channels))
             msg = await ctx.respond(
                 f"Now typing in {channel.mention}.",
-                # localizations={"zh-TW": f"開始在 {channel.mention} 輸入中", "zh-CN": f"开始在 {channel.mention} 输入中"},
+                # TODO: add localization
+                # zh-TW: f"開始在 {channel.mention} 輸入中"
+                # zh-CN: f"开始在 {channel.mention} 输入中"
             )
         await channel.trigger_typing()
         return msg
@@ -141,14 +147,18 @@ class Typing(commands.Cog):
         if channel.id not in self._channels:
             return await ctx.respond(
                 "Not typing in that channel.",
-                # localizations={"zh-TW": "不在該頻道中輸入中", "zh-CN": "不在该频道中输入中"},
+                # TODO: add localization
+                # zh-TW: "不在該頻道輸入中"
+                # zh-CN: "不在该频道输入中"
             )
         self._channels.remove(channel.id)
         async with aiofiles.open("typing.json", "wb") as f:
             await f.write(orjson.dumps(self._channels))
         return await ctx.respond(
             f"No longer typing in {channel.mention}.",
-            # localizations={"zh-TW": f"不再在 {channel.mention} 輸入中", "zh-CN": f"不再在 {channel.mention} 输入中"},
+            # TODO: add localization
+            # zh-TW: f"不再在 {channel.mention} 輸入中"
+            # zh-CN: f"不再在 {channel.mention} 输入中"
         )
 
 
