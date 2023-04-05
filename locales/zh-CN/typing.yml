@@ -1,0 +1,5 @@
+start_no_permission: 我没有在 %arg% 中发送消息的权限
+start_already_typing: 已经在 %arg% 输入中
+start_typing: 开始在 %arg% 输入
+stop_not_typing: 未在 %arg% 输入中
+stop_typing: 不再在 %arg% 输入

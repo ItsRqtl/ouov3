@@ -9,6 +9,8 @@ import discord
 import orjson
 from discord.ext import commands, tasks
 
+from utils.i18n import I18n
+
 
 class Typing(commands.Cog):
     """
@@ -29,7 +31,7 @@ class Typing(commands.Cog):
         The typing task.
         """
         if self._channels is None:
-            async with aiofiles.open("typing.json", "rb") as f:
+            async with aiofiles.open("data/typing.json", "rb") as f:
                 self._channels = orjson.loads(await f.read())
         for c in self._channels:
             try:
@@ -37,7 +39,7 @@ class Typing(commands.Cog):
                     await channel.trigger_typing()
             except Exception:
                 self._channels.remove(c)
-                async with aiofiles.open("typing.json", "wb") as f:
+                async with aiofiles.open("data/typing.json", "wb") as f:
                     await f.write(orjson.dumps(self._channels))
 
     typing = discord.SlashCommandGroup(
@@ -84,27 +86,22 @@ class Typing(commands.Cog):
         await ctx.defer(ephemeral=True)
         if not channel.permissions_for(ctx.guild.me).send_messages:
             return await ctx.respond(
-                f"I don't have permission to send messages in {channel.mention}.",
-                # TODO: add localization
-                # zh-TW: f"我沒有在 {channel.mention} 中發送訊息的權限"
-                # zh-CN: f"我没有在 {channel.mention} 中发送消息的权限"
+                I18n.get(
+                    "typing.start_no_permission", ctx.locale or ctx.guild_locale, [channel.mention]
+                )
             )
         if channel.id in self._channels:
             msg = await ctx.respond(
-                "Already typing in that channel.",
-                # TODO: add localization
-                # zh-TW: "已經在該頻道輸入中"
-                # zh-CN: "已经在该频道输入中"
+                I18n.get(
+                    "typing.start_already_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                )
             )
         else:
             self._channels.append(channel.id)
-            async with aiofiles.open("typing.json", "wb") as f:
+            async with aiofiles.open("data/typing.json", "wb") as f:
                 await f.write(orjson.dumps(self._channels))
             msg = await ctx.respond(
-                f"Now typing in {channel.mention}.",
-                # TODO: add localization
-                # zh-TW: f"開始在 {channel.mention} 輸入中"
-                # zh-CN: f"开始在 {channel.mention} 输入中"
+                I18n.get("typing.start_typing", ctx.locale or ctx.guild_locale, [channel.mention])
             )
         await channel.trigger_typing()
         return msg
@@ -146,19 +143,15 @@ class Typing(commands.Cog):
         await ctx.defer(ephemeral=True)
         if channel.id not in self._channels:
             return await ctx.respond(
-                "Not typing in that channel.",
-                # TODO: add localization
-                # zh-TW: "不在該頻道輸入中"
-                # zh-CN: "不在该频道输入中"
+                I18n.get(
+                    "typing.stop_not_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                )
             )
         self._channels.remove(channel.id)
-        async with aiofiles.open("typing.json", "wb") as f:
+        async with aiofiles.open("data/typing.json", "wb") as f:
             await f.write(orjson.dumps(self._channels))
         return await ctx.respond(
-            f"No longer typing in {channel.mention}.",
-            # TODO: add localization
-            # zh-TW: f"不再在 {channel.mention} 輸入中"
-            # zh-CN: f"不再在 {channel.mention} 输入中"
+            I18n.get("typing.stop_typing", ctx.locale or ctx.guild_locale, [channel.mention])
         )
 
 
