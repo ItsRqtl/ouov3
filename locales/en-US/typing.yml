@@ -1,0 +1,5 @@
+start_no_permission: I don't have permission to send messages in %arg%.
+start_already_typing: Already typing in %arg%.
+start_typing: Now typing in %arg%.
+stop_not_typing: Not typing in %arg%.
+stop_typing: No longer typing in %arg%.
