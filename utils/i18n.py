@@ -41,5 +41,5 @@ class I18n:
                     f"Number of arguments does not match number of placeholders in string '{out}'."
                 )
             for arg in args:
-                out = out.replace("%arg%", arg, 1)
+                out = out.replace("%arg%", str(arg), 1)
         return out
