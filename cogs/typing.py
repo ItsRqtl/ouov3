@@ -4,7 +4,9 @@ The cog module for the typing commands and tasks.
 
 from typing import Union
 
+import aiofiles
 import discord
+import orjson
 from discord.ext import commands, tasks
 
 
@@ -27,15 +29,16 @@ class Typing(commands.Cog):
         The typing task.
         """
         if self._channels is None:
-            self._channels = []
-            ...  # fetch channels from database
+            async with aiofiles.open("typing.json", "rb") as f:
+                self._channels = orjson.loads(await f.read())
         for c in self._channels:
             try:
                 if channel := self.bot.get_channel(c):
                     await channel.trigger_typing()
             except Exception:
                 self._channels.remove(c)
-                ...  # remove channel from database
+                async with aiofiles.open("typing.json", "wb") as f:
+                    await f.write(orjson.dumps(self._channels))
 
     typing = discord.SlashCommandGroup(
         "typing",
@@ -91,7 +94,8 @@ class Typing(commands.Cog):
             )
         else:
             self._channels.append(channel.id)
-            ...  # save channel to database
+            async with aiofiles.open("typing.json", "wb") as f:
+                await f.write(orjson.dumps(self._channels))
             msg = await ctx.respond(
                 f"Now typing in {channel.mention}.",
                 # localizations={"zh-TW": f"開始在 {channel.mention} 輸入中", "zh-CN": f"开始在 {channel.mention} 输入中"},
@@ -140,7 +144,8 @@ class Typing(commands.Cog):
                 # localizations={"zh-TW": "不在該頻道中輸入中", "zh-CN": "不在该频道中输入中"},
             )
         self._channels.remove(channel.id)
-        ...  # remove channel from database
+        async with aiofiles.open("typing.json", "wb") as f:
+            await f.write(orjson.dumps(self._channels))
         return await ctx.respond(
             f"No longer typing in {channel.mention}.",
             # localizations={"zh-TW": f"不再在 {channel.mention} 輸入中", "zh-CN": f"不再在 {channel.mention} 输入中"},
