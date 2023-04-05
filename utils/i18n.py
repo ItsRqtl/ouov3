@@ -15,8 +15,7 @@ class I18n:
     """
 
     locales = {"en-US", "zh-TW", "zh-CN"}
-    i18n_loader = PyI18nYamlLoader("locales", namespaced=True)
-    i18n_instance = PyI18n(tuple(locales), loader=i18n_loader)
+    i18n_instance = PyI18n(tuple(locales), loader=PyI18nYamlLoader("locales", namespaced=True))
     i18n_get = i18n_instance.gettext
 
     @classmethod
