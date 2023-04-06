@@ -23,7 +23,7 @@ class Bot(discord.AutoShardedBot):
         super().__init__(
             intents=_intents,
             owner_ids={733920687751823372, 1068494523723944027},
-            activity=discord.Game("OuO Bot V2"),
+            activity=discord.Game("OuO Bot V3"),
         )
         self._client_ready = False
         for k, v in self.load_extension("cogs", recursive=True, store=True).items():
