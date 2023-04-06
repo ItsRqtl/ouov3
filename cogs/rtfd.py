@@ -1,5 +1,5 @@
 """
-The cog module for the docs commands.
+The cog module for the rtfd commands.
 """
 
 from typing import List, Union
@@ -13,7 +13,7 @@ from utils.i18n import I18n
 from utils.utils import Utils
 
 
-class Docs(commands.Cog):
+class Rtfd(commands.Cog):
     """
     Docs searching commands.
 
@@ -60,7 +60,7 @@ class Docs(commands.Cog):
         :rtype: List[discord.Embed]
         """
         results = []
-        link_text = I18n.get("docs.link_text", locale)
+        link_text = I18n.get("rtfd.link_text", locale)
         for i in data["results"]:
             if i["project"] not in cls.vaild_projects:
                 continue
@@ -78,9 +78,9 @@ class Docs(commands.Cog):
                 results.append(eb)
         return results
 
-    docs = discord.SlashCommandGroup("docs", "Search the docs for a specific query.")
+    rtfd = discord.SlashCommandGroup("rtfd", "Search the docs for a specific query.")
 
-    pycord = docs.create_subgroup(
+    pycord = rtfd.create_subgroup(
         "pycord",
         "Search the Pycord docs for a specific query.",
     )
@@ -113,7 +113,7 @@ class Docs(commands.Cog):
         data = await Utils.api_request(
             f"https://docs.pycord.dev/_/api/v2/search/?q={quote(query)}&project=pycord&version=stable&language=en"
         )
-        results = Docs.get_embeds(
+        results = Rtfd.get_embeds(
             data,
             "Pycord",
             "https://docs.pycord.dev/en/stable/",
@@ -150,7 +150,7 @@ class Docs(commands.Cog):
         await ctx.defer()
         return await ctx.respond("https://docs.pycord.dev/en/stable/")
 
-    dpy = docs.create_subgroup(
+    dpy = rtfd.create_subgroup(
         "dpy",
         "Search the discord.py docs for a specific query.",
     )
@@ -183,7 +183,7 @@ class Docs(commands.Cog):
         data = await Utils.api_request(
             f"https://discordpy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=discordpy&version=stable&language=en"
         )
-        results = Docs.get_embeds(
+        results = Rtfd.get_embeds(
             data,
             "discord.py",
             "https://discordpy.readthedocs.io/en/stable/",
@@ -220,7 +220,7 @@ class Docs(commands.Cog):
         await ctx.defer()
         return await ctx.respond("https://discordpy.readthedocs.io/en/stable/")
 
-    ipy = docs.create_subgroup(
+    ipy = rtfd.create_subgroup(
         "ipy",
         "Search the interactions.py docs for a specific query.",
     )
@@ -256,7 +256,7 @@ class Docs(commands.Cog):
         data = await Utils.api_request(
             f"https://interactionspy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=interactionspy&version=latest&language=en"
         )
-        results = Docs.get_embeds(
+        results = Rtfd.get_embeds(
             data,
             "interactions.py",
             "https://interactionspy.readthedocs.io/en/latest/",
@@ -296,7 +296,7 @@ class Docs(commands.Cog):
         await ctx.defer()
         return await ctx.respond("https://interactionspy.readthedocs.io/en/latest/")
 
-    nextcord = docs.create_subgroup(
+    nextcord = rtfd.create_subgroup(
         "nextcord",
         "Search the nextcord docs for a specific query.",
     )
@@ -329,7 +329,7 @@ class Docs(commands.Cog):
         data = await Utils.api_request(
             f"https://docs.nextcord.dev/_/api/v2/search/?q={quote(query)}&project=nextcord&version=latest&language=en"
         )
-        results = Docs.get_embeds(
+        results = Rtfd.get_embeds(
             data,
             "nextcord",
             "https://docs.nextcord.dev/en/stable/",
@@ -366,7 +366,7 @@ class Docs(commands.Cog):
         await ctx.defer()
         return await ctx.respond("https://docs.nextcord.dev/en/stable/")
 
-    disnake = docs.create_subgroup(
+    disnake = rtfd.create_subgroup(
         "disnake",
         "Search the disnake docs for a specific query.",
     )
@@ -399,7 +399,7 @@ class Docs(commands.Cog):
         data = await Utils.api_request(
             f"https://docs.disnake.dev/_/api/v2/search/?q={quote(query)}&project=disnake&version=latest&language=en"
         )
-        results = Docs.get_embeds(
+        results = Rtfd.get_embeds(
             data,
             "disnake",
             "https://disnake.readthedocs.io/en/latest/",
@@ -444,4 +444,4 @@ def setup(bot: discord.AutoShardedBot) -> None:
     :param bot: The bot instance.
     :type bot: discord.AutoShardedBot
     """
-    bot.add_cog(Docs(bot))
+    bot.add_cog(Rtfd(bot))
