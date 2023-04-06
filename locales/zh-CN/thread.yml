@@ -1,3 +1,6 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
 archive_not_thread: 这不是一个讨论串/贴文
 archiving: 正在归档...
 archive_failed: 归档失败

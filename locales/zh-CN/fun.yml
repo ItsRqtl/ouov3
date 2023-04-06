@@ -1,3 +1,6 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
 bullshit_generated: 关于 %arg% 的 %arg% 字唬烂文章
 lmgtfy_generated: "Google搜索: [链接](<https://search.nat1an.xyz/?search=%arg%>)"
 random_no_range: 范围必须大于1

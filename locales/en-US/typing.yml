@@ -1,3 +1,6 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
 start_no_permission: I don't have permission to send messages in %arg%.
 start_already_typing: Already typing in %arg%.
 start_typing: Now typing in %arg%.

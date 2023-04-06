@@ -1,5 +1,8 @@
 """
 The cog module for the info commands.
+
+This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+See file LISENCE for full license details.
 """
 
 from typing import Union

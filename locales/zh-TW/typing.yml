@@ -1,3 +1,6 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
 start_no_permission: 我沒有在 %arg% 中發送訊息的權限
 start_already_typing: 已經在 %arg% 輸入中
 start_typing: 開始在 %arg% 輸入

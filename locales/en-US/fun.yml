@@ -1,3 +1,6 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
 bullshit_generated: Bullshit about %arg% with %arg% words.
 lmgtfy_generated: "Google Search: [Link](<https://letmegooglethat.com/?q=%arg%>)"
 random_no_range: The range must be larger than 1.
