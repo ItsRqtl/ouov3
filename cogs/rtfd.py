@@ -73,7 +73,7 @@ class Rtfd(commands.Cog):
                     if len(content) + len(link) > 1024:
                         content = f"{content[:1020 - len(link)]}..."
                     content += link
-                    eb.add_field(name=j["name"], value=content)
+                    eb.add_field(name=j["name"], value=content, inline=False)
             if eb.fields:
                 results.append(eb)
         return results
