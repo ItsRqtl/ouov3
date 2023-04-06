@@ -15,8 +15,7 @@ class I18n:
     """
 
     locales = {"en-US", "zh-TW", "zh-CN"}
-    i18n_loader = PyI18nYamlLoader("locales", namespaced=True)
-    i18n_instance = PyI18n(tuple(locales), loader=i18n_loader)
+    i18n_instance = PyI18n(tuple(locales), loader=PyI18nYamlLoader("locales", namespaced=True))
     i18n_get = i18n_instance.gettext
 
     @classmethod
@@ -42,5 +41,5 @@ class I18n:
                     f"Number of arguments does not match number of placeholders in string '{out}'."
                 )
             for arg in args:
-                out = out.replace("%arg%", arg, 1)
+                out = out.replace("%arg%", str(arg), 1)
         return out
