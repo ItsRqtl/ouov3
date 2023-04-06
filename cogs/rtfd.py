@@ -105,7 +105,7 @@ class Rtfd(commands.Cog):
         if not results:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
+                    I18n.get("rtfd.no_results", ctx.locale or ctx.guild_locale),
                 )
             )
         elif len(results) == 1:
