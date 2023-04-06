@@ -78,6 +78,42 @@ class Rtfd(commands.Cog):
                 results.append(eb)
         return results
 
+    async def _docs_search(
+        self, ctx: discord.ApplicationContext, query_url: str, name: str, url: str, icon: str
+    ) -> Union[discord.Message, discord.WebhookMessage]:
+        """
+        Search the docs for a specific query.
+        This is an internal method for the rtfd command response.
+
+        :param ctx: The context of the command.
+        :type ctx: discord.ApplicationContext
+        :param query: The query to search for.
+        :type query: str
+        :param name: The name of the library.
+        :type name: str
+        :param url: The url of the library.
+        :type url: str
+        :param icon: The icon of the library.
+        :type icon: str
+
+        :return: The message sent.
+        :rtype: Union[discord.Message, discord.WebhookMessage]
+        """
+        await ctx.defer()
+        data = await Utils.api_request(query_url)
+        results = self.get_embeds(data, name, url, icon, ctx.locale or ctx.guild_locale)
+        if not results:
+            return await ctx.respond(
+                embed=Embed.error(
+                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
+                )
+            )
+        elif len(results) == 1:
+            return await ctx.respond(embed=results[0])
+        else:
+            paginator = pages.Paginator(results)
+            return await paginator.respond(ctx.interaction)
+
     rtfd = discord.SlashCommandGroup("rtfd", "Search the docs for a specific query.")
 
     pycord = rtfd.create_subgroup(
@@ -109,28 +145,13 @@ class Rtfd(commands.Cog):
         :return: The message sent.
         :rtype: Union[discord.Message, discord.WebhookMessage]
         """
-        await ctx.defer()
-        data = await Utils.api_request(
-            f"https://docs.pycord.dev/_/api/v2/search/?q={quote(query)}&project=pycord&version=stable&language=en"
-        )
-        results = Rtfd.get_embeds(
-            data,
+        return await self._docs_search(
+            ctx,
+            f"https://docs.pycord.dev/_/api/v2/search/?q={quote(query)}&project=pycord&version=stable&language=en",
             "Pycord",
             "https://docs.pycord.dev/en/stable/",
             "https://avatars.githubusercontent.com/u/89700626?s=200&v=4",
-            ctx.locale or ctx.guild_locale,
         )
-        if not results:
-            return await ctx.respond(
-                embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
-                )
-            )
-        elif len(results) == 1:
-            return await ctx.respond(embed=results[0])
-        else:
-            paginator = pages.Paginator(results)
-            return await paginator.respond(ctx.interaction)
 
     @pycord.command(
         name="docs",
@@ -179,28 +200,13 @@ class Rtfd(commands.Cog):
         :return: The message sent.
         :rtype: Union[discord.Message, discord.WebhookMessage]
         """
-        await ctx.defer()
-        data = await Utils.api_request(
-            f"https://discordpy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=discordpy&version=stable&language=en"
-        )
-        results = Rtfd.get_embeds(
-            data,
+        return await self._docs_search(
+            ctx,
+            f"https://discordpy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=discordpy&version=stable&language=en",
             "discord.py",
             "https://discordpy.readthedocs.io/en/stable/",
             "https://truth.bahamut.com.tw/s01/202106/f394bbeb4bfac8abdfafe49dbfd0427d.PNG",
-            ctx.locale or ctx.guild_locale,
         )
-        if not results:
-            return await ctx.respond(
-                embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
-                )
-            )
-        elif len(results) == 1:
-            return await ctx.respond(embed=results[0])
-        else:
-            paginator = pages.Paginator(results)
-            return await paginator.respond(ctx.interaction)
 
     @dpy.command(
         name="docs",
@@ -252,28 +258,13 @@ class Rtfd(commands.Cog):
         :return: The message sent.
         :rtype: Union[discord.Message, discord.WebhookMessage]
         """
-        await ctx.defer()
-        data = await Utils.api_request(
-            f"https://interactionspy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=interactionspy&version=latest&language=en"
-        )
-        results = Rtfd.get_embeds(
-            data,
+        return await self._docs_search(
+            ctx,
+            f"https://interactionspy.readthedocs.io/_/api/v2/search/?q={quote(query)}&project=interactionspy&version=latest&language=en",
             "interactions.py",
             "https://interactionspy.readthedocs.io/en/latest/",
             "https://avatars.githubusercontent.com/u/98242689?s=200&v=4",
-            ctx.locale or ctx.guild_locale,
         )
-        if not results:
-            return await ctx.respond(
-                embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
-                )
-            )
-        elif len(results) == 1:
-            return await ctx.respond(embed=results[0])
-        else:
-            paginator = pages.Paginator(results)
-            return await paginator.respond(ctx.interaction)
 
     @ipy.command(
         name="docs",
@@ -325,28 +316,13 @@ class Rtfd(commands.Cog):
         :return: The message sent.
         :rtype: Union[discord.Message, discord.WebhookMessage]
         """
-        await ctx.defer()
-        data = await Utils.api_request(
-            f"https://docs.nextcord.dev/_/api/v2/search/?q={quote(query)}&project=nextcord&version=latest&language=en"
-        )
-        results = Rtfd.get_embeds(
-            data,
+        return await self._docs_search(
+            ctx,
+            f"https://docs.nextcord.dev/_/api/v2/search/?q={quote(query)}&project=nextcord&version=latest&language=en",
             "nextcord",
             "https://docs.nextcord.dev/en/stable/",
             "https://avatars.githubusercontent.com/u/89693200?s=200&v=4",
-            ctx.locale or ctx.guild_locale,
         )
-        if not results:
-            return await ctx.respond(
-                embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
-                )
-            )
-        elif len(results) == 1:
-            return await ctx.respond(embed=results[0])
-        else:
-            paginator = pages.Paginator(results)
-            return await paginator.respond(ctx.interaction)
 
     @nextcord.command(
         name="docs",
@@ -395,28 +371,13 @@ class Rtfd(commands.Cog):
         :return: The message sent.
         :rtype: Union[discord.Message, discord.WebhookMessage]
         """
-        await ctx.defer()
-        data = await Utils.api_request(
-            f"https://docs.disnake.dev/_/api/v2/search/?q={quote(query)}&project=disnake&version=latest&language=en"
-        )
-        results = Rtfd.get_embeds(
-            data,
+        return await self._docs_search(
+            ctx,
+            f"https://docs.disnake.dev/_/api/v2/search/?q={quote(query)}&project=disnake&version=latest&language=en",
             "disnake",
             "https://disnake.readthedocs.io/en/latest/",
             "https://avatars.githubusercontent.com/u/93640097?s=200&v=4",
-            ctx.locale or ctx.guild_locale,
         )
-        if not results:
-            return await ctx.respond(
-                embed=Embed.error(
-                    I18n.get("docs.no_results", ctx.locale or ctx.guild_locale),
-                )
-            )
-        elif len(results) == 1:
-            return await ctx.respond(embed=results[0])
-        else:
-            paginator = pages.Paginator(results)
-            return await paginator.respond(ctx.interaction)
 
     @disnake.command(
         name="docs",
