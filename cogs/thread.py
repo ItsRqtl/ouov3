@@ -42,7 +42,7 @@ class Thread(commands.Cog):
 
     @thread.command(
         description="Archive the current thread.",
-        description_localization={"zh-TW": "封存目前的討論串。", "zh-CN": "归档目前的讨论串。"},
+        description_localizations={"zh-TW": "封存目前的討論串", "zh-CN": "归档目前的讨论串"},
     )
     async def archive(self, ctx: discord.ApplicationContext) -> discord.Message:
         """
@@ -81,12 +81,12 @@ class Thread(commands.Cog):
 
     @thread.command(
         description="Add a user to the current thread.",
-        description_localization={"zh-TW": "將使用者加入目前的討論串。", "zh-CN": "将用户加入目前的讨论串。"},
+        description_localizations={"zh-TW": "將使用者加入目前的討論串", "zh-CN": "将用户加入目前的讨论串"},
     )
     @discord.option(
         name="user",
         description="The user to add to the thread.",
-        description_localization={"zh-TW": "要加入討論串的使用者。", "zh-CN": "要加入讨论串的用户。"},
+        description_localizations={"zh-TW": "要加入討論串的使用者", "zh-CN": "要加入讨论串的用户"},
     )
     async def add(self, ctx: discord.ApplicationContext, user: discord.Member) -> discord.Message:
         """
@@ -135,12 +135,12 @@ class Thread(commands.Cog):
 
     @thread.command(
         description="Remove a user from the current thread.",
-        description_localization={"zh-TW": "將使用者從目前的討論串中移除。", "zh-CN": "将用户从目前的讨论串中移除。"},
+        description_localizations={"zh-TW": "將使用者從目前的討論串中移除", "zh-CN": "将用户从目前的讨论串中移除"},
     )
     @discord.option(
         name="user",
         description="The user to remove from the thread.",
-        description_localization={"zh-TW": "要從討論串中移除的使用者。", "zh-CN": "要从讨论串中移除的用户。"},
+        description_localizations={"zh-TW": "要從討論串中移除的使用者", "zh-CN": "要从讨论串中移除的用户"},
     )
     async def remove(
         self, ctx: discord.ApplicationContext, user: discord.Member

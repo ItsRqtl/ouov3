@@ -27,7 +27,7 @@ class Bot(discord.AutoShardedBot):
         )
         self._client_ready = False
         for k, v in self.load_extension("cogs", recursive=True, store=True).items():
-            if v:
+            if v is True:
                 print(f"成功載入插件 {k}")
             else:
                 print(f"載入插件 {k} 失敗: {v}")

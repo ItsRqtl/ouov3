@@ -28,6 +28,15 @@ class Embed:
             color=color,
         )
 
+    def invisible() -> discord.Color:
+        """
+        Generate the Discord gray color.
+
+        :return: The generated color.
+        :rtype: discord.Color
+        """
+        return discord.Color(0x2B2D31)
+
     def random_color() -> discord.Color:
         """
         Generate a random color.
