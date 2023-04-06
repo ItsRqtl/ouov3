@@ -1,6 +1,6 @@
 """
-This project is licensed under the GNU General Public License v3.0
-Please refer to the LICENSE file for more information.
+This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+See file LISENCE for full license details.
 """
 
 import tracemalloc
@@ -23,11 +23,11 @@ class Bot(discord.AutoShardedBot):
         super().__init__(
             intents=_intents,
             owner_ids={733920687751823372, 1068494523723944027},
-            activity=discord.Game("OuO Bot V2"),
+            activity=discord.Game("OuO Bot V3"),
         )
         self._client_ready = False
         for k, v in self.load_extension("cogs", recursive=True, store=True).items():
-            if v:
+            if v is True:
                 print(f"成功載入插件 {k}")
             else:
                 print(f"載入插件 {k} 失敗: {v}")

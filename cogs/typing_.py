@@ -1,5 +1,8 @@
 """
 The cog module for the typing commands and tasks.
+
+This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+See file LISENCE for full license details.
 """
 
 from typing import Union
@@ -9,6 +12,7 @@ import discord
 import orjson
 from discord.ext import commands, tasks
 
+from utils.embed import Embed
 from utils.i18n import I18n
 
 
@@ -86,14 +90,22 @@ class Typing(commands.Cog):
         await ctx.defer(ephemeral=True)
         if not channel.permissions_for(ctx.guild.me).send_messages:
             return await ctx.respond(
-                I18n.get(
-                    "typing.start_no_permission", ctx.locale or ctx.guild_locale, [channel.mention]
+                embed=Embed.error(
+                    I18n.get(
+                        "typing.start_no_permission",
+                        ctx.locale or ctx.guild_locale,
+                        [channel.mention],
+                    )
                 )
             )
         if channel.id in self._channels:
             msg = await ctx.respond(
-                I18n.get(
-                    "typing.start_already_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                embed=Embed.error(
+                    I18n.get(
+                        "typing.start_already_typing",
+                        ctx.locale or ctx.guild_locale,
+                        [channel.mention],
+                    )
                 )
             )
         else:
@@ -143,8 +155,10 @@ class Typing(commands.Cog):
         await ctx.defer(ephemeral=True)
         if channel.id not in self._channels:
             return await ctx.respond(
-                I18n.get(
-                    "typing.stop_not_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                embed=Embed.error(
+                    I18n.get(
+                        "typing.stop_not_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                    )
                 )
             )
         self._channels.remove(channel.id)
