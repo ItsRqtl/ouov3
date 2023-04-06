@@ -1,0 +1,11 @@
+archive_not_thread: This is not a thread/post.
+archiving: Archiving...
+archive_failed: Archiving failed.
+add_not_thread: This is not a thread/post.
+add_already_in: "%arg% is already in this thread/post."
+add_failed: Adding %arg% failed.
+add_success: "%arg% added to this thread/post."
+remove_not_thread: This is not a thread/post.
+remove_not_in: "%arg% is not in this thread/post."
+remove_failed: Removing %arg% failed.
+remove_success: "%arg% removed from this thread/post."
