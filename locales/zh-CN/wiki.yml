@@ -1,0 +1,19 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
+url: https://zh.wikipedia.org/
+
+api:
+  url: https://zh.wikipedia.org/api/rest_v1/page/summary/{query}
+  random_url: https://zh.wikipedia.org/api/rest_v1/page/random/summary
+  accept_language: zh-CN
+
+page:
+  no_result: 没有找到相关条目
+  author: 维基百科 - 搜索条目
+  button: 前往页面
+  disambiguation:
+    author: 维基百科 - 消歧义
+    description: 该页面可能指向多个不同的主题。请使用精确的页面名称再次搜索。
+  random:
+    author: 维基百科 - 随机页面
