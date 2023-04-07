@@ -1,0 +1,29 @@
+threadtype_THREAT_TYPE_UNSPECIFIED: 未知
+threadtype_MALWARE: "[恶意程序](https://developers.google.com/search/docs/monitor-debug/security/malware)"
+threadtype_SOCIAL_ENGINEERING: "[社交工程](http://www.antiphishing.org/)"
+threadtype_UNWANTED_SOFTWARE: "[潜在附加软件](https://www.google.com/about/unwanted-software-policy.html)"
+threadtype_POTENTIALLY_HARMFUL_APPLICATION: 潜在有害程序
+
+platformtype_PLATFORM_TYPE_UNSPECIFIED: 未知
+platformtype_WINDOWS: Windows
+platformtype_LINUX: Linux
+platformtype_ANDROID: Android
+platformtype_OSX: macOS
+platformtype_IOS: iOS
+platformtype_ANY_PLATFORM: 任何平台
+platformtype_ALL_PLATFORM: 所有平台
+platformtype_CHROME: Chrome
+
+urlscan_title: 消息包含可能有害的链接
+urlscan_description: "数据仅供参考，未必完全准确，请自行注意链接是否安全。\n\nGoogle 致力于提供有关不安全网络资源的最准确和最新的信息。不过，Google 无法保证其信息全面且正确无误，因此其中一些风险的网站可能无法识别，某些安全网站可能是错误的。"
+urlscan_match: "威胁类型: %arg%\n受影响平台: %arg%"
+urlscan_footer: 数据由 Google 提供 | Google Safe Browsing API
+
+token_title: 发现 TOKEN
+token_description_no_perms: "你的消息包含了 Discord 的 TOKEN，但没有适当的权限为你删除!\n为安全起见请前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 进行重置。"
+token_description_deleted: "你的消息包含了 Discord 的 TOKEN，已经为你删除了!\n为安全起见请前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 进行重置。"
+
+ghostping_role: "身分組: \n"
+ghostping_user: "成员: \n"
+ghostping_title: "抓到 Ghost Ping 了！"
+ghostping_description: "%arg% 这样可不行喔！\n以下的受害者被Ghost ping了...\n\n%arg%"

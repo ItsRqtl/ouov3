@@ -17,9 +17,12 @@ class Bot(discord.AutoShardedBot):
     Inherited from discord.AutoShardedBot
     """
 
+    version = "v3"
+
     def __init__(self) -> None:
         _intents = discord.Intents.default()
         _intents.members = True
+        _intents.message_content = True
         super().__init__(
             intents=_intents,
             owner_ids={733920687751823372, 1068494523723944027},
