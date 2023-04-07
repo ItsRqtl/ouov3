@@ -65,18 +65,18 @@ class Thread(commands.Cog):
         ]:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("thread.archive_not_thread", ctx.locale or ctx.guild_locale),
+                    I18n.get("thread.archive.not_thread", ctx.locale or ctx.guild_locale),
                 )
             )
         msg = await ctx.respond(
-            I18n.get("thread.archiving", ctx.locale or ctx.guild_locale),
+            I18n.get("thread.archive.in_progress", ctx.locale or ctx.guild_locale),
         )
         try:
             await ctx.channel.edit(archived=True, locked=True)
         except Exception:
             msg = await ctx.followup.send(
                 embed=Embed.error(
-                    I18n.get("thread.archive_failed", ctx.locale or ctx.guild_locale)
+                    I18n.get("thread.archive.failed", ctx.locale or ctx.guild_locale)
                 ),
                 ephemeral=True,
             )
@@ -111,14 +111,14 @@ class Thread(commands.Cog):
         ]:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("thread.add_not_thread", ctx.locale or ctx.guild_locale),
+                    I18n.get("thread.add.not_thread", ctx.locale or ctx.guild_locale),
                 )
             )
         if user in ctx.channel.members:
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "thread.add_already_in", ctx.locale or ctx.guild_locale, [user.mention]
+                        "thread.add.already_in", ctx.locale or ctx.guild_locale, user=user.mention
                     ),
                 )
             )
@@ -127,12 +127,14 @@ class Thread(commands.Cog):
         except Exception:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("thread.add_failed", ctx.locale or ctx.guild_locale, [user.mention]),
+                    I18n.get(
+                        "thread.add.failed", ctx.locale or ctx.guild_locale, user=user.mention
+                    ),
                 )
             )
         return await ctx.respond(
             embed=Embed.success(
-                I18n.get("thread.add_success", ctx.locale or ctx.guild_locale, [user.mention]),
+                I18n.get("thread.add.success", ctx.locale or ctx.guild_locale, user=user.mention),
             )
         )
 
@@ -167,14 +169,14 @@ class Thread(commands.Cog):
         ]:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("thread.remove_not_thread", ctx.locale or ctx.guild_locale),
+                    I18n.get("thread.remove.not_thread", ctx.locale or ctx.guild_locale),
                 )
             )
         if user not in ctx.channel.members:
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "thread.remove_not_in", ctx.locale or ctx.guild_locale, [user.mention]
+                        "thread.remove.not_in", ctx.locale or ctx.guild_locale, user=user.mention
                     ),
                 )
             )
@@ -184,13 +186,15 @@ class Thread(commands.Cog):
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "thread.remove_failed", ctx.locale or ctx.guild_locale, [user.mention]
+                        "thread.remove.failed", ctx.locale or ctx.guild_locale, user=user.mention
                     ),
                 )
             )
         return await ctx.respond(
             embed=Embed.success(
-                I18n.get("thread.remove_success", ctx.locale or ctx.guild_locale, [user.mention]),
+                I18n.get(
+                    "thread.remove.success", ctx.locale or ctx.guild_locale, user=user.mention
+                ),
             )
         )
 

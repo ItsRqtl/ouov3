@@ -101,7 +101,10 @@ class Fun(commands.Cog):
         generated = self.generate_bullshit(topic, length, data)
         generated_length = len(generated)
         resp = I18n.get(
-            "fun.bullshit_generated", ctx.locale or ctx.guild_locale, [topic, generated_length]
+            "fun.bullshit.generated",
+            ctx.locale or ctx.guild_locale,
+            topic=topic,
+            length=generated_length,
         )
         if generated_length > 4096:
             file = discord.File(StringIO(generated), filename="bs.txt")
@@ -133,7 +136,9 @@ class Fun(commands.Cog):
         """
         await ctx.defer()
         return await ctx.respond(
-            I18n.get("fun.lmgtfy_generated", ctx.locale or ctx.guild_locale, [quote_plus(search)])
+            I18n.get(
+                "fun.lmgtfy.generated", ctx.locale or ctx.guild_locale, query=quote_plus(search)
+            )
         )
 
     # NO TRANSLATION: This is a meme command. #
@@ -186,13 +191,19 @@ class Fun(commands.Cog):
         await ctx.defer()
         if min == max:
             return await ctx.respond(
-                embed=Embed.error(I18n.get("fun.random_no_range", ctx.locale or ctx.guild_locale))
+                embed=Embed.error(I18n.get("fun.random.no_range", ctx.locale or ctx.guild_locale))
             )
         if min > max:
             min, max = max, min
         result = randint(min, max)
         return await ctx.respond(
-            I18n.get("fun.random_generated", ctx.locale or ctx.guild_locale, [min, max, result])
+            I18n.get(
+                "fun.random.generated",
+                ctx.locale or ctx.guild_locale,
+                min=min,
+                max=max,
+                result=result,
+            )
         )
 
     @discord.slash_command(
@@ -222,26 +233,26 @@ class Fun(commands.Cog):
         if "image" not in image.content_type:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("fun.whatanime_not_image", ctx.locale or ctx.guild_locale)
+                    I18n.get("fun.whatanime.not_image", ctx.locale or ctx.guild_locale)
                 )
             )
         url = await Utils.api_request(f"https://api.trace.moe/search?url={quote_plus(image.url)}")
         if url == 429:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("fun.whatanime_rate_limited", ctx.locale or ctx.guild_locale)
+                    I18n.get("fun.whatanime.rate_limited", ctx.locale or ctx.guild_locale)
                 )
             )
         if url == 402:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("fun.whatanime_no_quota", ctx.locale or ctx.guild_locale)
+                    I18n.get("fun.whatanime.no_quota", ctx.locale or ctx.guild_locale)
                 )
             )
         if url["result"][0]["similarity"] < 0.9:
             return await ctx.respond(
                 embed=Embed.error(
-                    I18n.get("fun.whatanime_no_result", ctx.locale or ctx.guild_locale)
+                    I18n.get("fun.whatanime.no_result", ctx.locale or ctx.guild_locale)
                 )
             )
         async with aiohttp.ClientSession() as s, s.post(
@@ -257,19 +268,17 @@ class Fun(commands.Cog):
         embed = discord.Embed(
             title=resp["data"]["Media"]["title"]["native"],
             description=I18n.get(
-                "fun.whatanime_result",
+                "fun.whatanime.result",
                 ctx.locale or ctx.guild_locale,
-                [
-                    resp["data"]["Media"]["title"]["chinese"] or "N/A",
-                    url["result"][0]["episode"] or "N/A",
-                    f"{datetime.timedelta(seconds=int(url['result'][0]['from']))} - {datetime.timedelta(seconds=int(url['result'][0]['to']))}",
-                    round(url["result"][0]["similarity"] * 100, 2),
-                ],
+                title=resp["data"]["Media"]["title"]["chinese"] or "N/A",
+                episode=url["result"][0]["episode"] or "N/A",
+                time=f"{datetime.timedelta(seconds=int(url['result'][0]['from']))} - {datetime.timedelta(seconds=int(url['result'][0]['to']))}",
+                similarity=round(url["result"][0]["similarity"] * 100, 2),
             ),
             color=discord.Color.blurple(),
         )
         embed.set_image(url="attachment://preview.jpg")
-        embed.set_footer(text=I18n.get("fun.whatanime_footer", ctx.locale or ctx.guild_locale))
+        embed.set_footer(text=I18n.get("fun.whatanime.footer", ctx.locale or ctx.guild_locale))
         await ctx.respond(embed=embed, file=discord.File(filename="preview.jpg", fp=preview))
 
 

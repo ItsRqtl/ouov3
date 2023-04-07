@@ -1,14 +1,19 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-archive_not_thread: 这不是一个讨论串/贴文
-archiving: 正在归档...
-archive_failed: 归档失败
-add_not_thread: 这不是一个讨论串/贴文
-add_already_in: "%arg% 已经在这个讨论串/贴文中"
-add_failed: 新增 %arg% 失败
-add_success: "%arg% 已新增到这个讨论串/贴文中"
-remove_not_thread: 这不是一个讨论串/贴文
-remove_not_in: "%arg% 不在这个讨论串/贴文中"
-remove_failed: 移除 %arg% 失败
-remove_success: "%arg% 已从这个讨论串/贴文中移除"
+archive:
+  not_thread: 这不是一个讨论串/贴文
+  in_progress: 正在归档...
+  failed: 归档失败
+
+add:
+  not_thread: 这不是一个讨论串/贴文
+  already_in: "{user} 已经在这个讨论串/贴文中"
+  failed: 新增 {user} 失败
+  success: "{user} 已新增到这个讨论串/贴文中"
+
+remove:
+  not_thread: 这不是一个讨论串/贴文
+  not_in: "{user} 不在这个讨论串/贴文中"
+  failed: 移除 {user} 失败
+  success: "{user} 已从这个讨论串/贴文中移除"

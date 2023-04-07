@@ -1,14 +1,19 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-archive_not_thread: This is not a thread/post.
-archiving: Archiving...
-archive_failed: Archiving failed.
-add_not_thread: This is not a thread/post.
-add_already_in: "%arg% is already in this thread/post."
-add_failed: Adding %arg% failed.
-add_success: "%arg% added to this thread/post."
-remove_not_thread: This is not a thread/post.
-remove_not_in: "%arg% is not in this thread/post."
-remove_failed: Removing %arg% failed.
-remove_success: "%arg% removed from this thread/post."
+archive:
+  not_thread: This is not a thread/post.
+  in_progress: Archiving...
+  failed: Archiving failed.
+
+add:
+  not_thread: This is not a thread/post.
+  already_in: "{user} is already in this thread/post."
+  failed: Adding {user} failed.
+  success: "{user} added to this thread/post."
+
+remove:
+  not_thread: This is not a thread/post.
+  not_in: "{user} is not in this thread/post."
+  failed: Removing {user} failed.
+  success: "{user} removed from this thread/post."

@@ -27,11 +27,11 @@ class ThreatType(Enum):
     The threat type of a URL scan.
     """
 
-    THREAT_TYPE_UNSPECIFIED = "protection.threadtype_THREAT_TYPE_UNSPECIFIED"
-    MALWARE = "protection.threadtype_MALWARE"
-    SOCIAL_ENGINEERING = "protection.threadtype_SOCIAL_ENGINEERING"
-    UNWANTED_SOFTWARE = "protection.threadtype_UNWANTED_SOFTWARE"
-    POTENTIALLY_HARMFUL_APPLICATION = "protection.threadtype_POTENTIALLY_HARMFUL_APPLICATION"
+    THREAT_TYPE_UNSPECIFIED = "protection.threadtype.THREAT_TYPE_UNSPECIFIED"
+    MALWARE = "protection.threadtype.MALWARE"
+    SOCIAL_ENGINEERING = "protection.threadtype.SOCIAL_ENGINEERING"
+    UNWANTED_SOFTWARE = "protection.threadtype.UNWANTED_SOFTWARE"
+    POTENTIALLY_HARMFUL_APPLICATION = "protection.threadtype.POTENTIALLY_HARMFUL_APPLICATION"
 
 
 class PlatformType(Enum):
@@ -39,15 +39,15 @@ class PlatformType(Enum):
     The platform type of a threat.
     """
 
-    PLATFORM_TYPE_UNSPECIFIED = "protection.platformtype_PLATFORM_TYPE_UNSPECIFIED"
-    WINDOWS = "protection.platformtype_WINDOWS"
-    LINUX = "protection.platformtype_LINUX"
-    ANDROID = "protection.platformtype_ANDROID"
-    OSX = "protection.platformtype_OSX"
-    IOS = "protection.platformtype_IOS"
-    ANY_PLATFORM = "protection.platformtype_ANY_PLATFORM"
-    ALL_PLATFORM = "protection.platformtype_ALL_PLATFORM"
-    CHROME = "protection.platformtype_CHROME"
+    PLATFORM_TYPE_UNSPECIFIED = "protection.platformtype.PLATFORM_TYPE_UNSPECIFIED"
+    WINDOWS = "protection.platformtype.WINDOWS"
+    LINUX = "protection.platformtype.LINUX"
+    ANDROID = "protection.platformtype.ANDROID"
+    OSX = "protection.platformtype.OSX"
+    IOS = "protection.platformtype.IOS"
+    ANY_PLATFORM = "protection.platformtype.ANY_PLATFORM"
+    ALL_PLATFORM = "protection.platformtype.ALL_PLATFORM"
+    CHROME = "protection.platformtype.CHROME"
 
 
 class Match:
@@ -72,7 +72,7 @@ class Match:
         """
         platform = I18n.get(self.platform_type, locale)
         threat = I18n.get(self.threat_type, locale)
-        return I18n.get("protection.urlscan_match", locale, [platform, threat])
+        return I18n.get("protection.urlscan.match", locale, threat=threat, platform=platform)
 
     def get_matches(data: list) -> List["Match"]:
         """
@@ -153,9 +153,9 @@ class Protection(commands.Cog):
                 return
             embeds = []
             now = datetime.datetime.now()
-            title = I18n.get("protection.urlscan_title", message.guild.preferred_locale)
-            description = I18n.get("protection.urlscan_description", message.guild.preferred_locale)
-            footer = I18n.get("protection.urlscan_footer", message.guild.preferred_locale)
+            title = I18n.get("protection.urlscan.title", message.guild.preferred_locale)
+            description = I18n.get("protection.urlscan.description", message.guild.preferred_locale)
+            footer = I18n.get("protection.urlscan.footer", message.guild.preferred_locale)
             for i in discord.utils.as_chunks(Match.get_matches(matches), 5):
                 embed = discord.Embed(
                     title=title,
@@ -203,9 +203,9 @@ class Protection(commands.Cog):
                         await message.reply(
                             message.author.mention,
                             embed=discord.Embed(
-                                title=I18n.get("protection.token_title", locale),
+                                title=I18n.get("protection.token.title", locale),
                                 description=I18n.get(
-                                    "protection.token_description_no_perms", locale
+                                    "protection.token.description.no_perms", locale
                                 ),
                                 color=Embed.invisible(),
                             ),
@@ -214,9 +214,9 @@ class Protection(commands.Cog):
                         await message.channel.send(
                             message.author.mention,
                             embed=discord.Embed(
-                                title=I18n.get("protection.token_title", locale),
+                                title=I18n.get("protection.token.title", locale),
                                 description=I18n.get(
-                                    "protection.token_description_deleted", locale
+                                    "protection.token.description.deleted", locale
                                 ),
                                 color=Embed.invisible(),
                             ),
@@ -259,21 +259,22 @@ class Protection(commands.Cog):
         else:
             content = ""
             if roles:
-                content += I18n.get("protection.ghostping_role", message.guild.preferred_locale)
+                content += I18n.get("protection.ghostping.role", message.guild.preferred_locale)
                 content += "\n".join(roles)
             if victims:
                 if content != "":
                     content += "\n\n"
-                content += I18n.get("protection.ghostping_user", message.guild.preferred_locale)
+                content += I18n.get("protection.ghostping.user", message.guild.preferred_locale)
                 content += "\n".join(victims)
         with contextlib.suppress(Exception):
             await message.channel.send(
                 embed=discord.Embed(
-                    title=I18n.get("protection.ghostping_title", message.guild.preferred_locale),
+                    title=I18n.get("protection.ghostping.title", message.guild.preferred_locale),
                     description=I18n.get(
-                        "protection.ghostping_description",
+                        "protection.ghostping.description",
                         message.guild.preferred_locale,
-                        [message.author.mention, content],
+                        author=message.author.mention,
+                        content=content,
                     ),
                     color=Embed.invisible(),
                 )

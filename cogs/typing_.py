@@ -92,9 +92,9 @@ class Typing(commands.Cog):
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "typing.start_no_permission",
+                        "typing.start.no_permission",
                         ctx.locale or ctx.guild_locale,
-                        [channel.mention],
+                        channel=channel.mention,
                     )
                 )
             )
@@ -102,9 +102,9 @@ class Typing(commands.Cog):
             msg = await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "typing.start_already_typing",
+                        "typing.start.already_typing",
                         ctx.locale or ctx.guild_locale,
-                        [channel.mention],
+                        channel=channel.mention,
                     )
                 )
             )
@@ -113,7 +113,9 @@ class Typing(commands.Cog):
             async with aiofiles.open("data/typing.json", "wb") as f:
                 await f.write(orjson.dumps(self._channels))
             msg = await ctx.respond(
-                I18n.get("typing.start_typing", ctx.locale or ctx.guild_locale, [channel.mention])
+                I18n.get(
+                    "typing.start.typing", ctx.locale or ctx.guild_locale, channel=channel.mention
+                )
             )
         await channel.trigger_typing()
         return msg
@@ -157,7 +159,9 @@ class Typing(commands.Cog):
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get(
-                        "typing.stop_not_typing", ctx.locale or ctx.guild_locale, [channel.mention]
+                        "typing.stop.not_typing",
+                        ctx.locale or ctx.guild_locale,
+                        channel=channel.mention,
                     )
                 )
             )
@@ -165,7 +169,7 @@ class Typing(commands.Cog):
         async with aiofiles.open("data/typing.json", "wb") as f:
             await f.write(orjson.dumps(self._channels))
         return await ctx.respond(
-            I18n.get("typing.stop_typing", ctx.locale or ctx.guild_locale, [channel.mention])
+            I18n.get("typing.stop.typing", ctx.locale or ctx.guild_locale, channel=channel.mention)
         )
 
 

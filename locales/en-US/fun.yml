@@ -1,13 +1,20 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-bullshit_generated: Bullshit about %arg% with %arg% words.
-lmgtfy_generated: "Google Search: [Link](<https://letmegooglethat.com/?q=%arg%>)"
-random_no_range: The range must be larger than 1.
-random_generated: "The random number generated between %arg% and %arg% is... %arg%."
-whatanime_not_image: You must provide an image attachment.
-whatanime_rate_limited: The API is rate limited. Please try again later.
-whatanime_no_quota: The API has no quota left for this month.
-whatanime_no_result: No result found.
-whatanime_result: "Chinese Title: %arg%\nEpisode: %arg%\nTime: %arg%\nSimilarity: %arg%%"
-whatanime_footer: Data provided by trace.moe
+bullshit:
+  generated: "Bullshit about {topic} with {length} words."
+
+lmgtfy:
+  generated: "Google Search: [Link](<https://letmegooglethat.com/?q={query}>)"
+
+random:
+  no_range: The range must be larger than 1.
+  generated: "The random number generated between {min} and {max} is... {result}."
+
+whatanime:
+  not_image: You must provide an image attachment.
+  rate_limited: The API is rate limited. Please try again later.
+  no_quota: The API has no quota left for this month.
+  no_result: No result found.
+  result: "Chinese Title: {title}\nEpisode: {episode}\nTime: {time}\nSimilarity: {similarity}%"
+  footer: Data provided by trace.moe

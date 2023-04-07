@@ -1,29 +1,35 @@
-threadtype_THREAT_TYPE_UNSPECIFIED: 未知
-threadtype_MALWARE: "[惡意程式](https://developers.google.com/search/docs/monitor-debug/security/malware)"
-threadtype_SOCIAL_ENGINEERING: "[社交工程](http://www.antiphishing.org/)"
-threadtype_UNWANTED_SOFTWARE: "[潛在附加軟件](https://www.google.com/about/unwanted-software-policy.html)"
-threadtype_POTENTIALLY_HARMFUL_APPLICATION: 潛在有害程式
+threadtype:
+  THREAT_TYPE_UNSPECIFIED: 未知
+  MALWARE: "[惡意程式](https://developers.google.com/search/docs/monitor-debug/security/malware)"
+  SOCIAL_ENGINEERING: "[社交工程](http://www.antiphishing.org/)"
+  UNWANTED_SOFTWARE: "[潛在附加軟件](https://www.google.com/about/unwanted-software-policy.html)"
+  POTENTIALLY_HARMFUL_APPLICATION: 潛在有害程式
 
-platformtype_PLATFORM_TYPE_UNSPECIFIED: 未知
-platformtype_WINDOWS: Windows
-platformtype_LINUX: Linux
-platformtype_ANDROID: Android
-platformtype_OSX: macOS
-platformtype_IOS: iOS
-platformtype_ANY_PLATFORM: 任何平台
-platformtype_ALL_PLATFORM: 所有平台
-platformtype_CHROME: Chrome
+platformtype:
+  PLATFORM_TYPE_UNSPECIFIED: 未知
+  WINDOWS: Windows
+  LINUX: Linux
+  ANDROID: Android
+  OSX: macOS
+  IOS: iOS
+  ANY_PLATFORM: 任何平台
+  ALL_PLATFORM: 所有平台
+  CHROME: Chrome
 
-urlscan_title: 訊息包含可能有害的連結
-urlscan_description: "資料僅供參考，未必完全準確，請自行注意連結是否安全。\n\nGoogle 致力於提供最準確的最新網路資源相關資訊。 然而，Google 無法保證其資訊完全詳盡且沒有錯誤：系統可能無法辨識部分風險的網站，因此可能會誤將某些安全網站列為錯誤。"
-urlscan_match: "威脅類別: %arg%\n受影響平台: %arg%"
-urlscan_footer: 資料由 Google 提供 | Google Safe Browsing API
+urlscan:
+  title: 訊息包含可能有害的連結
+  description: "資料僅供參考，未必完全準確，請自行注意連結是否安全。\n\nGoogle 致力於提供最準確的最新網路資源相關資訊。 然而，Google 無法保證其資訊完全詳盡且沒有錯誤：系統可能無法辨識部分風險的網站，因此可能會誤將某些安全網站列為錯誤。"
+  match: "威脅類別: {threat}\n受影響平台: {platform}"
+  footer: 資料由 Google 提供 | Google Safe Browsing API
 
-token_title: 發現 TOKEN
-token_description_no_perms: "你的訊息包含了Discord的TOKEN，但沒有適當的權限為你刪除!\n為安全起見請前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 進行重設。"
-token_description_deleted: "你的訊息包含了Discord的TOKEN，已經為你刪除了!\n為安全起見請前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 進行重設。"
+token:
+  title: 發現 TOKEN
+  description:
+    no_perms: "你的訊息包含了Discord的TOKEN，但沒有適當的權限為你刪除!\n為安全起見請前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 進行重設。"
+    deleted: "你的訊息包含了Discord的TOKEN，已經為你刪除了!\n為安全起見請前往 [Discord Developer Portal](<https://discord.com/developers/applications>) 進行重設。"
 
-ghostping_role: "身分組: \n"
-ghostping_user: "成員: \n"
-ghostping_title: "抓到 Ghost Ping 了！"
-ghostping_description: "%arg% 這樣可不行喔！\n以下的受害者被Ghost ping了...\n\n%arg%"
+ghostping:
+  role: "身分組: \n"
+  user: "成員: \n"
+  title: "抓到 Ghost Ping 了！"
+  description: "{author} 這樣可不行喔！\n以下的受害者被Ghost ping了...\n\n{content}"
