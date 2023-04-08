@@ -1,13 +1,20 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-bullshit_generated: 关于 %arg% 的 %arg% 字唬烂文章
-lmgtfy_generated: "Google搜索: [链接](<https://search.nat1an.xyz/?search=%arg%>)"
-random_no_range: 范围必须大于1
-random_generated: "在 %arg% 和 %arg% 之间的生成的随机数是... %arg%"
-whatanime_not_image: 你必须提供一个图片附件
-whatanime_rate_limited: API被速率限制了，请稍后再试
-whatanime_no_quota: API本月的配额已用完
-whatanime_no_result: 没有找到结果
-whatanime_result: "中文标题: %arg%\n集数: %arg%\n时间: %arg%\n相似度: %arg%%"
-whatanime_footer: 数据由 trace.moe 提供
+bullshit:
+  generated: "关于 {topic} 的 {length} 字唬烂文章"
+
+lmgtfy:
+  generated: "Google搜索: [链接](<https://search.nat1an.xyz/?search={query}>)"
+
+random:
+  no_range: 范围必须大于1
+  generated: "在 {min} 和 {max} 之间的生成的随机数是... {result}"
+
+whatanime:
+  not_image: 你必须提供一个图片附件
+  rate_limited: API被速率限制了，请稍后再试
+  no_quota: API本月的配额已用完
+  no_result: 没有找到结果
+  result: "中文标题: {title}\n集数: {episode}\n时间: {time}\n相似度: {similarity}%"
+  footer: 数据由 trace.moe 提供

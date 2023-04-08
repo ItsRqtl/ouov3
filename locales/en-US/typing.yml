@@ -1,8 +1,11 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-start_no_permission: I don't have permission to send messages in %arg%.
-start_already_typing: Already typing in %arg%.
-start_typing: Now typing in %arg%.
-stop_not_typing: Not typing in %arg%.
-stop_typing: No longer typing in %arg%.
+start:
+  no_permission: I don't have permission to send messages in {channel}.
+  already_typing: Already typing in {channel}.
+  typing: Now typing in {channel}.
+
+stop:
+  not_typing: Not typing in {channel}.
+  typing: No longer typing in {channel}.

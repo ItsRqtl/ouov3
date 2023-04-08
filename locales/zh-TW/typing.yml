@@ -1,8 +1,11 @@
 # This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 # See file LISENCE for full license details.
 
-start_no_permission: 我沒有在 %arg% 中發送訊息的權限
-start_already_typing: 已經在 %arg% 輸入中
-start_typing: 開始在 %arg% 輸入
-stop_not_typing: 未在 %arg% 輸入中
-stop_typing: 不再在 %arg% 輸入
+start:
+  no_permission: 我沒有在 {channel} 中發送訊息的權限
+  already_typing: 已經在 {channel} 輸入中
+  typing: 開始在 {channel} 輸入
+
+stop:
+  not_typing: 未在 {channel} 輸入中
+  typing: 不再在 {channel} 輸入

@@ -1,0 +1,19 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
+url: https://en.wikipedia.org/
+
+api:
+  url: https://en.wikipedia.org/api/rest_v1/page/summary/{query}
+  random_url: https://en.wikipedia.org/api/rest_v1/page/random/summary
+  accept_language: en-US
+
+page:
+  no_result: No result found.
+  author: Wikipedia - Search page
+  button: Go to page
+  disambiguation:
+    author: Wikipedia - Disambiguation
+    description: This page may refer to multiple different topics. Please search again with the exact page name.
+  random:
+    author: Wikipedia - Random page

@@ -1,0 +1,35 @@
+threadtype:
+  THREAT_TYPE_UNSPECIFIED: Unknown
+  MALWARE: "[Malware](https://developers.google.com/search/docs/monitor-debug/security/malware)"
+  SOCIAL_ENGINEERING: "[Social engineering](http://www.antiphishing.org/)"
+  UNWANTED_SOFTWARE: "[Unwanted software](https://www.google.com/about/unwanted-software-policy.html)"
+  POTENTIALLY_HARMFUL_APPLICATION: Harmful application
+
+platformtype:
+  PLATFORM_TYPE_UNSPECIFIED: Unknown
+  WINDOWS: Windows
+  LINUX: Linux
+  ANDROID: Android
+  OSX: macOS
+  IOS: iOS
+  ANY_PLATFORM: Any platform
+  ALL_PLATFORM: All platforms
+  CHROME: Chrome
+
+urlscan:
+  title: Message contains potentially harmful links
+  description: "Data is for reference only and may not be accurate. Please be aware of the safety of the links.\n\nGoogle works to provide the most accurate and up-to-date information about unsafe web resources. However, Google cannot guarantee that its information is comprehensive and error-free: some risky sites may not be identified, and some safe sites may be identified in error."
+  match: "Threat type: {threat}\nAffected platform: {platform}"
+  footer: Advisory provided by Google | Google Safe Browsing API
+
+token:
+  title: TOKEN Found
+  description:
+    no_perms: "Your message contains a Discord TOKEN, but I don't have the permission to delete it for you!\nFor safety, please reset it at [Discord Developer Portal](<https://discord.com/developers/applications>)."
+    deleted: "Your message contains a Discord TOKEN, and I have deleted it for you!\nFor safety, please reset it at [Discord Developer Portal](<https://discord.com/developers/applications>)."
+
+ghostping:
+  role: "Roles: \n"
+  user: "Users: \n"
+  title: "Ghostping Found"
+  description: "{author} stop ghostpinging lol!\nThe following victims were ghostpinged...\n\n{content}"
