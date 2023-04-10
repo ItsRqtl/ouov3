@@ -1,0 +1,13 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
+translate:
+  ratelimited: "The API is ratelimited. Please try again later."
+  out_of_quota: "The bot ran out of quota for this month. "
+  result:
+    title: "Translation Result"
+    description: "[Unable to show the full result.](<{url}>)"
+    original: "Original"
+    translated: "Translated"
+    footer: "DeepL Translate | {original_lang} → {target_lang}"
+    original_auto: "Auto-detected"

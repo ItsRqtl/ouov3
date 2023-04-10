@@ -11,7 +11,7 @@ from urllib.parse import quote
 import discord
 from discord.ext import commands, pages
 
-from utils.embed import Embed
+from utils.embed import Color, Embed
 from utils.i18n import I18n
 from utils.utils import Utils
 
@@ -68,7 +68,7 @@ class Rtfd(commands.Cog):
             if i["project"] not in cls.vaild_projects:
                 continue
             eb = discord.Embed(
-                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Embed.invisible()
+                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random_color()
             )
             eb.set_author(name=name, url=url, icon_url=icon)
             for j in i["blocks"]:
