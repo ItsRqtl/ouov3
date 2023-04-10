@@ -18,7 +18,7 @@ import decouple
 import discord
 from discord.ext import commands
 
-from utils.embed import Embed
+from utils.embed import Color
 from utils.i18n import I18n
 
 
@@ -168,7 +168,7 @@ class Protection(commands.Cog):
                         )
                         for match in i
                     ],
-                    color=Embed.invisible(),
+                    color=Color.invisible(),
                     timestamp=now,
                 ).set_footer(text=footer)
                 embeds.append(embed)
@@ -207,7 +207,7 @@ class Protection(commands.Cog):
                                 description=I18n.get(
                                     "protection.token.description.no_perms", locale
                                 ),
-                                color=Embed.invisible(),
+                                color=Color.invisible(),
                             ),
                         )
                     else:
@@ -218,7 +218,7 @@ class Protection(commands.Cog):
                                 description=I18n.get(
                                     "protection.token.description.deleted", locale
                                 ),
-                                color=Embed.invisible(),
+                                color=Color.invisible(),
                             ),
                         )
                     finally:
@@ -276,7 +276,7 @@ class Protection(commands.Cog):
                         author=message.author.mention,
                         content=content,
                     ),
-                    color=Embed.invisible(),
+                    color=Color.invisible(),
                 )
             )
 

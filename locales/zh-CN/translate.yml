@@ -1,0 +1,13 @@
+# This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
+# See file LISENCE for full license details.
+
+translate:
+  ratelimited: "API受到速率限制。请稍后再试。"
+  out_of_quota: "机器人本月的API配额已用完。"
+  result:
+    title: "翻译结果"
+    description: "[未能完整显示的翻译内容](<{url}>)"
+    original: "原文"
+    translated: "翻译"
+    footer: "DeepL 翻译 | {original_lang} → {target_lang}"
+    original_auto: "自动检测"

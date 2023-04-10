@@ -10,7 +10,7 @@ from urllib.parse import quote
 import discord
 from discord.ext import commands
 
-from utils.embed import Embed
+from utils.embed import Color, Embed
 from utils.i18n import I18n
 from utils.utils import Utils
 
@@ -78,7 +78,7 @@ class Wikipedia(commands.Cog):
             title=data["title"],
             description=description,
             url=data["content_urls"]["desktop"]["page"],
-            color=Embed.invisible(),
+            color=Color.random_color(),
         ).set_author(
             name=author,
             url=I18n.get("wiki.url", ctx.locale or ctx.guild_locale),
@@ -123,7 +123,7 @@ class Wikipedia(commands.Cog):
             title=data["title"],
             description=data["extract"],
             url=data["content_urls"]["desktop"]["page"],
-            color=Embed.invisible(),
+            color=Color.random_color(),
         ).set_author(
             name=I18n.get("wiki.page.random.author", ctx.locale or ctx.guild_locale),
             url=I18n.get("wiki.url", ctx.locale or ctx.guild_locale),

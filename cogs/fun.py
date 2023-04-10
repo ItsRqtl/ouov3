@@ -16,7 +16,7 @@ import discord
 import orjson
 from discord.ext import commands
 
-from utils.embed import Embed
+from utils.embed import Color, Embed
 from utils.i18n import I18n
 from utils.utils import Utils
 
@@ -109,7 +109,7 @@ class Fun(commands.Cog):
         if generated_length > 4096:
             file = discord.File(StringIO(generated), filename="bs.txt")
             return await ctx.respond(resp, file=file)
-        embed = discord.Embed(title=resp, description=generated, color=discord.Color.blurple())
+        embed = discord.Embed(title=resp, description=generated, color=Color.random_color())
         return await ctx.respond(embed=embed)
 
     @discord.slash_command(
@@ -141,7 +141,7 @@ class Fun(commands.Cog):
             )
         )
 
-    # NO TRANSLATION: This is a meme command. #
+    # NO TRANSLATION/OUTPUT FORMAT: This is a meme command. #
     @discord.slash_command(description="You should try it and see!")
     async def tias(self, ctx: discord.ApplicationContext) -> discord.Message:
         """
@@ -275,7 +275,7 @@ class Fun(commands.Cog):
                 time=f"{datetime.timedelta(seconds=int(url['result'][0]['from']))} - {datetime.timedelta(seconds=int(url['result'][0]['to']))}",
                 similarity=round(url["result"][0]["similarity"] * 100, 2),
             ),
-            color=discord.Color.blurple(),
+            color=Color.random_color(),
         )
         embed.set_image(url="attachment://preview.jpg")
         embed.set_footer(text=I18n.get("fun.whatanime.footer", ctx.locale or ctx.guild_locale))
