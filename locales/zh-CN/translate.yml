@@ -3,7 +3,7 @@
 
 translate:
   ratelimited: "API受到速率限制。请稍后再试。"
-  out_of_quota: "机器人本月的API配额已用完。"
+  out_of_quota: "机器人本月的API额度已用完。"
   result:
     title: "翻译结果"
     description: "[未能完整显示的翻译内容](<{url}>)"
