@@ -10,13 +10,14 @@ from typing import Union
 import aiofiles
 import discord
 import orjson
-from discord.ext import commands, tasks
+from discord.ext import tasks
 
 from utils.embed import Embed
 from utils.i18n import I18n
+from utils.logging import Cog
 
 
-class Typing(commands.Cog):
+class Typing(Cog):
     """
     Typing commands and tasks cog.
 

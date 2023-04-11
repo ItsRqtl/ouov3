@@ -10,6 +10,8 @@ tracemalloc.start(25)
 import decouple
 import discord
 
+from utils.logging import Logging
+
 
 class Bot(discord.AutoShardedBot):
     """
@@ -28,12 +30,13 @@ class Bot(discord.AutoShardedBot):
             owner_ids={733920687751823372, 1068494523723944027},
             activity=discord.Game("OuO Bot V3"),
         )
+        self.logger = Logging.get_logger()
         self._client_ready = False
         for k, v in self.load_extension("cogs", recursive=True, store=True).items():
             if v is True:
-                print(f"成功載入插件 {k}")
+                self.logger.debug(f"成功載入插件 {k}")
             else:
-                print(f"載入插件 {k} 時出現錯誤: {v}")
+                self.logger.debug(f"載入插件 {k} 時出現錯誤: {v}")
 
     async def on_shard_connect(self, shard_id: int) -> None:
         """
@@ -42,7 +45,7 @@ class Bot(discord.AutoShardedBot):
         :param shard_id: The shard ID.
         :type shard_id: int
         """
-        print(f"分片 {shard_id} 已連線至 Discord")
+        self.logger.debug(f"分片 {shard_id} 已連線至 Discord")
 
     async def on_shard_ready(self, shard_id: int) -> None:
         """
@@ -51,7 +54,7 @@ class Bot(discord.AutoShardedBot):
         :param shard_id: The shard ID.
         :type shard_id: int
         """
-        print(f"分片 {shard_id} 已準備就緒")
+        self.logger.debug(f"分片 {shard_id} 已準備就緒")
 
     async def on_shard_resumed(self, shard_id: int) -> None:
         """
@@ -60,7 +63,7 @@ class Bot(discord.AutoShardedBot):
         :param shard_id: The shard ID.
         :type shard_id: int
         """
-        print(f"分片 {shard_id} 已恢復連線至 Discord")
+        self.logger.debug(f"分片 {shard_id} 已恢復連線至 Discord")
 
     async def on_shard_disconnect(self, shard_id: int) -> None:
         """
@@ -69,7 +72,7 @@ class Bot(discord.AutoShardedBot):
         :param shard_id: The shard ID.
         :type shard_id: int
         """
-        print(f"分片 {shard_id} 已斷線")
+        self.logger.debug(f"分片 {shard_id} 已斷線")
 
     async def on_ready(self) -> None:
         """
@@ -78,12 +81,15 @@ class Bot(discord.AutoShardedBot):
         if self._client_ready:
             return
 
-        print("-------------------------")
-        print(f"已登入: {self.user.name}#{self.user.discriminator} ({self.user.id})")
-        print(f"分片數量: {self.shard_count}")
-        print(f"記憶體使用量: {tracemalloc.get_traced_memory()[0] / 1024 ** 2:.2f} MB")
-        print(f"API 延遲: {self.latency * 1000:.2f} ms")
-        print("-------------------------")
+        self.logger.info(
+            f"""
+-------------------------
+已登入: {self.user.name}#{self.user.discriminator} ({self.user.id})
+分片數量: {self.shard_count}
+記憶體使用量: {tracemalloc.get_traced_memory()[0] / 1024 ** 2:.2f} MB
+API 延遲: {self.latency * 1000:.2f} ms
+-------------------------"""
+        )
         self._client_ready = True
 
     async def close(self) -> None:
