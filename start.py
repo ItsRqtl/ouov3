@@ -33,7 +33,7 @@ class Bot(discord.AutoShardedBot):
             if v is True:
                 print(f"成功載入插件 {k}")
             else:
-                print(f"載入插件 {k} 失敗: {v}")
+                print(f"載入插件 {k} 時出現錯誤: {v}")
 
     async def on_shard_connect(self, shard_id: int) -> None:
         """
