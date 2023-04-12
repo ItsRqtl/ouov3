@@ -1,0 +1,19 @@
+opening: Starting calculator...
+
+help:
+  title: Calculator help
+  description: |
+    1. Click number keys to input numbers
+    2. Click the '.' key to input a decimal point
+    3. Click operator keys to perform operations
+    4. Click the '=' key to display the result
+    5. Click the '←' key to delete the last number
+    6. Click the 'C' key to clear the current input
+    7. Click the 'AC' key to clear all inputs
+    8. Click the '?' key to display this help
+    9. Click the 'X' key to close the calculator
+
+
+check-failed: "You are not the owner of this calculator, please use </calculator:{command_id}> to open a calculator."
+
+closed: Calculator closed.
