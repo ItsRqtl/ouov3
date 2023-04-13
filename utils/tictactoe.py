@@ -11,6 +11,8 @@ import itertools
 
 import numpy as np
 
+__all__ = ["Tictactoe"]
+
 
 class Tictactoe:
     """

@@ -19,6 +19,8 @@ import sys
 
 from loguru._logger import Core, Logger
 
+__all__ = ["Logging", "Cog"]
+
 
 class Logging:
     """
