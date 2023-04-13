@@ -9,14 +9,15 @@ from typing import List, Union
 from urllib.parse import quote
 
 import discord
-from discord.ext import commands, pages
+from discord.ext import pages
 
 from utils.embed import Color, Embed
 from utils.i18n import I18n
+from utils.logging import Cog
 from utils.utils import Utils
 
 
-class Rtfd(commands.Cog):
+class Rtfd(Cog):
     """
     Docs searching commands.
 

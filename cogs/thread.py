@@ -8,13 +8,13 @@ See file LISENCE for full license details.
 import contextlib
 
 import discord
-from discord.ext import commands
 
 from utils.embed import Embed
 from utils.i18n import I18n
+from utils.logging import Cog
 
 
-class Thread(commands.Cog):
+class Thread(Cog):
     """
     Thread commands cog.
 
@@ -32,7 +32,7 @@ class Thread(commands.Cog):
     def __init__(self, bot: discord.AutoShardedBot) -> None:
         self.bot = bot
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_thread_create(self, thread: discord.Thread) -> None:
         """
         The event listener for thread creation.

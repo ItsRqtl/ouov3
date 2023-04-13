@@ -8,14 +8,14 @@ See file LISENCE for full license details.
 from urllib.parse import quote
 
 import discord
-from discord.ext import commands
 
 from utils.embed import Color, Embed
 from utils.i18n import I18n
+from utils.logging import Cog
 from utils.utils import Utils
 
 
-class Wikipedia(commands.Cog):
+class Wikipedia(Cog):
     """
     Wikipedia searching commands.
 

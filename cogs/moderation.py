@@ -14,8 +14,9 @@ from discord import (
     default_permissions,
     option,
 )
-from discord.ext import commands
 from discord.ui import InputText, Modal
+
+from utils.logging import Cog
 
 
 class ReasonModalActionType(Enum):
@@ -95,11 +96,11 @@ class ModerationView(discord.ui.View):
         await interaction.response.send_modal(TimeoutModal(self.user))
 
 
-class Moderation(commands.Cog):
+class Moderation(Cog):
     def __init__(self, bot: AutoShardedBot):
         self.bot = bot
 
-    @commands.slash_command(name="mod", description="對成員的管理操作")
+    @discord.slash_command(name="mod", description="對成員的管理操作")
     @default_permissions(administrator=True)
     @option(
         input_type=SlashCommandOptionType.user,

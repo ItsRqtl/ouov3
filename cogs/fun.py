@@ -14,14 +14,14 @@ import aiofiles
 import aiohttp
 import discord
 import orjson
-from discord.ext import commands
 
 from utils.embed import Color, Embed
 from utils.i18n import I18n
+from utils.logging import Cog
 from utils.utils import Utils
 
 
-class Fun(commands.Cog):
+class Fun(Cog):
     """
     Fun commands cog.
 

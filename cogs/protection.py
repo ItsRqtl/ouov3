@@ -16,10 +16,10 @@ from typing import List
 import aiohttp
 import decouple
 import discord
-from discord.ext import commands
 
 from utils.embed import Color
 from utils.i18n import I18n
+from utils.logging import Cog
 
 
 class ThreatType(Enum):
@@ -87,7 +87,7 @@ class Match:
         return [Match(match) for match in data]
 
 
-class Protection(commands.Cog):
+class Protection(Cog):
     """
     Protection event cog.
 
@@ -130,7 +130,7 @@ class Protection(commands.Cog):
             return await r.json()
 
     # TEST URL: http://malware.testing.google.test/testing/malware/*
-    @commands.Cog.listener("on_message")
+    @Cog.listener("on_message")
     async def url_safecheck(self, message: discord.Message) -> None:
         """
         Scan all URLs in the message and check if they are safe.
@@ -177,7 +177,7 @@ class Protection(commands.Cog):
             else:
                 await message.reply(embeds=embeds)
 
-    @commands.Cog.listener("on_message")
+    @Cog.listener("on_message")
     async def token_safecheck(self, message: discord.Message) -> None:
         """
         Scan all message to check for discord tokens.
@@ -224,7 +224,7 @@ class Protection(commands.Cog):
                     finally:
                         break
 
-    @commands.Cog.listener("on_message_delete")
+    @Cog.listener("on_message_delete")
     async def ghost_ping(self, message: discord.Message) -> None:
         """
         Detect ghost pings.

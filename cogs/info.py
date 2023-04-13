@@ -8,10 +8,11 @@ See file LISENCE for full license details.
 from typing import Union
 
 import discord
-from discord.ext import commands
+
+from utils.logging import Cog
 
 
-class Info(commands.Cog):
+class Info(Cog):
     """
     Info commands cog.
 
