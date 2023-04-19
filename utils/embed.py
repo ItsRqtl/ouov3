@@ -31,6 +31,23 @@ class Embed:
         """
         return discord.Embed(description=f":x: {error}", color=color or discord.Color.red())
 
+    @classmethod
+    def success(cls, message: str, color: int | discord.Color | None = None) -> discord.Embed:
+        """
+        Generate a success embed.
+
+        :param message: The success message.
+        :type message: str
+        :param color: The color of the embed.
+        :type color: Optional[Union[int, discord.Color]]
+
+        :return: The generated embed.
+        :rtype: discord.Embed
+        """
+        return discord.Embed(
+            description=f":white_check_mark: {message}", color=color or discord.Color.brand_green()
+        )
+
 
 class Color:
     """

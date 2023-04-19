@@ -4,8 +4,9 @@ The cog module for the rtfd commands.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
-from typing import List, Union
+from typing import List
 from urllib.parse import quote
 
 import discord
@@ -45,7 +46,7 @@ class Rtfd(Cog):
         )
 
     def get_embeds(
-        self, data: dict, name: str, url: str, icon: str, locale: str
+        self, data: dict, name: str, url: str, icon: str, locale: str | None
     ) -> List[discord.Embed]:
         """
         Return a list of Embeds from the given data.
@@ -70,7 +71,7 @@ class Rtfd(Cog):
             if i["project"] not in self.vaild_projects:
                 continue
             eb = discord.Embed(
-                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random_color()
+                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random()
             )
             eb.set_author(name=name, url=url, icon_url=icon)
             for j in i["blocks"]:
@@ -87,7 +88,7 @@ class Rtfd(Cog):
 
     async def _docs_search(
         self, ctx: discord.ApplicationContext, query_url: str, name: str, url: str, icon: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the docs for a specific query.
         This is an internal method for the rtfd command response.
@@ -104,7 +105,7 @@ class Rtfd(Cog):
         :type icon: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         data = await Utils.api_request(query_url)
@@ -140,7 +141,7 @@ class Rtfd(Cog):
     )
     async def pycord_search(
         self, ctx: discord.ApplicationContext, query: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the Pycord docs for a specific query.
 
@@ -150,7 +151,7 @@ class Rtfd(Cog):
         :type query: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         return await self._docs_search(
             ctx,
@@ -165,7 +166,9 @@ class Rtfd(Cog):
         description="Get the link to the Pycord docs.",
         description_localizations={"zh-TW": "取得 Pycord 文檔的連結", "zh-CN": "获取 Pycord 文档的链接"},
     )
-    async def pycord_docs(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def pycord_docs(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Get the link to the Pycord docs.
 
@@ -173,7 +176,7 @@ class Rtfd(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond("https://docs.pycord.dev/en/stable/")
@@ -195,7 +198,7 @@ class Rtfd(Cog):
     )
     async def dpy_search(
         self, ctx: discord.ApplicationContext, query: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the discord.py docs for a specific query.
 
@@ -205,7 +208,7 @@ class Rtfd(Cog):
         :type query: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         return await self._docs_search(
             ctx,
@@ -220,7 +223,9 @@ class Rtfd(Cog):
         description="Get the link to the discord.py docs.",
         description_localizations={"zh-TW": "取得 discord.py 文檔的連結", "zh-CN": "获取 discord.py 文档的链接"},
     )
-    async def dpy_docs(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def dpy_docs(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Get the link to the discord.py docs.
 
@@ -228,7 +233,7 @@ class Rtfd(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond("https://discordpy.readthedocs.io/en/stable/")
@@ -253,7 +258,7 @@ class Rtfd(Cog):
     )
     async def ipy_search(
         self, ctx: discord.ApplicationContext, query: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the interactions.py docs for a specific query.
 
@@ -263,7 +268,7 @@ class Rtfd(Cog):
         :type query: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         return await self._docs_search(
             ctx,
@@ -281,7 +286,9 @@ class Rtfd(Cog):
             "zh-CN": "获取 interactions.py 文档的链接",
         },
     )
-    async def ipy_docs(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def ipy_docs(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Get the link to the interactions.py docs.
 
@@ -289,7 +296,7 @@ class Rtfd(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond("https://interactionspy.readthedocs.io/en/latest/")
@@ -311,7 +318,7 @@ class Rtfd(Cog):
     )
     async def nextcord_search(
         self, ctx: discord.ApplicationContext, query: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the nextcord docs for a specific query.
 
@@ -321,7 +328,7 @@ class Rtfd(Cog):
         :type query: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         return await self._docs_search(
             ctx,
@@ -336,7 +343,9 @@ class Rtfd(Cog):
         description="Get the link to the nextcord docs.",
         description_localizations={"zh-TW": "取得 nextcord 文檔的連結", "zh-CN": "获取 nextcord 文档的链接"},
     )
-    async def nextcord_docs(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def nextcord_docs(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Get the link to the nextcord docs.
 
@@ -366,7 +375,7 @@ class Rtfd(Cog):
     )
     async def disnake_search(
         self, ctx: discord.ApplicationContext, query: str
-    ) -> Union[discord.Message, discord.WebhookMessage]:
+    ) -> discord.Message | discord.Interaction | discord.WebhookMessage:
         """
         Search the disnake docs for a specific query.
 
@@ -376,7 +385,7 @@ class Rtfd(Cog):
         :type query: str
 
         :return: The message sent.
-        :rtype: Union[discord.Message, discord.WebhookMessage]
+        :rtype: discord.Message | discord.Interaction | discord.WebhookMessage
         """
         return await self._docs_search(
             ctx,
@@ -391,7 +400,9 @@ class Rtfd(Cog):
         description="Get the link to the disnake docs.",
         description_localizations={"zh-TW": "取得 disnake 文檔的連結", "zh-CN": "获取 disnake 文档的链接"},
     )
-    async def disnake_docs(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def disnake_docs(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Get the link to the disnake docs.
 
@@ -399,7 +410,7 @@ class Rtfd(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond("https://docs.disnake.dev/en/stable/")

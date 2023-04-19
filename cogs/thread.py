@@ -4,6 +4,7 @@ The cog module for thread commands and events.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 import contextlib
 
@@ -47,7 +48,9 @@ class Thread(Cog):
         description="Archive the current thread.",
         description_localizations={"zh-TW": "封存目前的討論串", "zh-CN": "归档目前的讨论串"},
     )
-    async def archive(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def archive(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage | None:
         """
         Archive the current thread.
 
@@ -55,7 +58,7 @@ class Thread(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage | None
         """
         await ctx.defer(ephemeral=True)
         if ctx.channel.type not in [
@@ -91,7 +94,9 @@ class Thread(Cog):
         description="The user to add to the thread.",
         description_localizations={"zh-TW": "要加入討論串的使用者", "zh-CN": "要加入讨论串的用户"},
     )
-    async def add(self, ctx: discord.ApplicationContext, user: discord.Member) -> discord.Message:
+    async def add(
+        self, ctx: discord.ApplicationContext, user: discord.Member
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Add a user to the current thread.
 
@@ -149,7 +154,7 @@ class Thread(Cog):
     )
     async def remove(
         self, ctx: discord.ApplicationContext, user: discord.Member
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Remove a user from the current thread.
 
@@ -159,7 +164,7 @@ class Thread(Cog):
         :type user: discord.Member
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer(ephemeral=True)
         if ctx.channel.type not in [

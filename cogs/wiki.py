@@ -4,6 +4,7 @@ The cog module for the Wikipedia commands.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 from urllib.parse import quote
 
@@ -38,7 +39,9 @@ class Wikipedia(Cog):
         description_localizations={"zh-TW": "要前往的頁面", "zh-CN": "要前往的页面"},
         required=True,
     )
-    async def page(self, ctx: discord.ApplicationContext, query: str) -> discord.Message:
+    async def page(
+        self, ctx: discord.ApplicationContext, query: str
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Go to a Wikipedia page.
 
@@ -48,7 +51,7 @@ class Wikipedia(Cog):
         :type query: str
 
         :return: The reponse message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         data = await Utils.api_request(
@@ -99,7 +102,9 @@ class Wikipedia(Cog):
         description="Show a random Wikipedia page.",
         description_localizations={"zh-TW": "顯示一個隨機的維基百科頁面", "zh-CN": "显示一个随机的维基百科页面"},
     )
-    async def random(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def random(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Show a random Wikipedia page.
 
@@ -107,7 +112,7 @@ class Wikipedia(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The reponse message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         data = await Utils.api_request(

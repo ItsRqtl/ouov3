@@ -4,6 +4,7 @@ The cog module for the Translate commands.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 from typing import Any, List
 
@@ -209,7 +210,7 @@ class Translate(Cog):
     )
     async def translate(
         self, ctx: discord.ApplicationContext, text: str, target: str, original: str = ""
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Translate a text.
 
@@ -223,7 +224,7 @@ class Translate(Cog):
         :type original: str
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         resp, lang = await self._translate(text, target, original)

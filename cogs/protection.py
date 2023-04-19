@@ -4,6 +4,7 @@ The cog module for event listeners to protect the server from bad things.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 import binascii
 import contextlib

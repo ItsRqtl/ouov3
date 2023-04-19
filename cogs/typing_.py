@@ -4,8 +4,7 @@ The cog module for the typing commands and tasks.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
-
-from typing import Union
+from __future__ import annotations
 
 import aiofiles
 import discord
@@ -75,18 +74,18 @@ class Typing(Cog):
     async def start(
         self,
         ctx: discord.ApplicationContext,
-        channel: Union[discord.TextChannel, discord.VoiceChannel, discord.Thread],
-    ) -> discord.Message:
+        channel: discord.TextChannel | discord.VoiceChannel | discord.Thread,
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Slash command to add a channel to the typing task.
 
         :param ctx: The context of the slash command.
         :type ctx: discord.ApplicationContext
         :param channel: The channel to add to the typing task.
-        :type channel: Union[discord.TextChannel, discord.VoiceChannel, discord.Thread]
+        :type channel: discord.TextChannel | discord.VoiceChannel | discord.Thread
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer(ephemeral=True)
         if not channel.permissions_for(ctx.guild.me).send_messages:
@@ -142,18 +141,18 @@ class Typing(Cog):
     async def stop(
         self,
         ctx: discord.ApplicationContext,
-        channel: Union[discord.TextChannel, discord.VoiceChannel, discord.Thread],
-    ) -> discord.Message:
+        channel: discord.TextChannel | discord.VoiceChannel | discord.Thread,
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Slash command to remove a channel from the typing task.
 
         :param ctx: The context of the slash command.
         :type ctx: discord.ApplicationContext
         :param channel: The channel to remove from the typing task.
-        :type channel: Union[discord.TextChannel, discord.VoiceChannel, discord.Thread]
+        :type channel: discord.TextChannel | discord.VoiceChannel | discord.Thread
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer(ephemeral=True)
         if channel.id not in self._channels:
