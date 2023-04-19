@@ -78,7 +78,7 @@ class Bot(discord.AutoShardedBot):
         """
         The event that is triggered when the bot is ready.
         """
-        if self._client_ready:
+        if self._client_ready or self.user is None:
             return
 
         self.logger.info(

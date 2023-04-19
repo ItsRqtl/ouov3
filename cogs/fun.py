@@ -4,6 +4,7 @@ The cog module for fun commands (or whatever not categorized lmfao)
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 import datetime
 from io import BytesIO, StringIO
@@ -81,7 +82,7 @@ class Fun(Cog):
     )
     async def bullshit(
         self, ctx: discord.ApplicationContext, topic: str, length: int = 250
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         The bullshit command.
 
@@ -93,7 +94,7 @@ class Fun(Cog):
         :type length: int
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         async with aiofiles.open("assets/bullshit.json", "rb") as f:
@@ -122,7 +123,9 @@ class Fun(Cog):
         description_localizations={"zh-TW": "搜尋內容。", "zh-CN": "搜索内容。"},
         max_length=200,
     )
-    async def lmgtfy(self, ctx: discord.ApplicationContext, search: str) -> discord.Message:
+    async def lmgtfy(
+        self, ctx: discord.ApplicationContext, search: str
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         The lmgtfy command.
 
@@ -132,7 +135,7 @@ class Fun(Cog):
         :type search: str
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond(
@@ -143,7 +146,9 @@ class Fun(Cog):
 
     # NO TRANSLATION/OUTPUT FORMAT: This is a meme command. #
     @discord.slash_command(description="You should try it and see!")
-    async def tias(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def tias(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         The tias command.
 
@@ -151,7 +156,7 @@ class Fun(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         return await ctx.respond("Just [try it and see!](https://tryitands.ee/)")
@@ -174,7 +179,9 @@ class Fun(Cog):
         description_localizations={"zh-TW": "最大值。", "zh-CN": "最大值。"},
         min_value=0,
     )
-    async def random(self, ctx: discord.ApplicationContext, min: int, max: int) -> discord.Message:
+    async def random(
+        self, ctx: discord.ApplicationContext, min: int, max: int
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         The random command.
 
@@ -186,7 +193,7 @@ class Fun(Cog):
         :type max: int
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
         if min == max:
@@ -217,7 +224,7 @@ class Fun(Cog):
     )
     async def whatanime(
         self, ctx: discord.ApplicationContext, image: discord.Attachment
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         The whatanime command.
 
@@ -227,10 +234,10 @@ class Fun(Cog):
         :type image: discord.Attachment
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         await ctx.defer()
-        if "image" not in image.content_type:
+        if "image" not in (image.content_type or ""):
             return await ctx.respond(
                 embed=Embed.error(
                     I18n.get("fun.whatanime.not_image", ctx.locale or ctx.guild_locale)

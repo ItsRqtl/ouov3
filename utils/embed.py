@@ -16,7 +16,8 @@ class Embed:
     Generate embeds for the bot.
     """
 
-    def error(error: str, color: int | discord.Color | None = None) -> discord.Embed:
+    @classmethod
+    def error(cls, error: str, color: int | discord.Color | None = None) -> discord.Embed:
         """
         Generate an error embed.
 
@@ -36,16 +37,18 @@ class Color:
     Generate colors for the bot.
     """
 
-    def invisible() -> discord.Color:
+    @classmethod
+    def invisible(cls) -> discord.Color:
         """
         A factory method that returns a discord.Color with a value of 0x2B2D31.
 
         :return: The generated color.
         :rtype: discord.Color
         """
-        return discord.Color(0x2B2D31)
+        return discord.Colour(0x2B2D31)
 
-    def random(seed: int | str | float | bytes | bytearray | None = None) -> discord.Color:
+    @classmethod
+    def random(cls, seed: int | str | float | bytes | bytearray | None = None) -> discord.Colour:
         """
         A factory method that returns a discord.Color with a random rgb value.
 
@@ -53,7 +56,7 @@ class Color:
         :type seed: Optional[Union[int, str, float, bytes, bytearray]]
 
         :return: The generated color.
-        :rtype: discord.Color
+        :rtype: discord.Colour
         """
         rand = random if seed is None else random.Random(seed)
-        return discord.Color(rand.randint(0, 0xFFFFFF))
+        return discord.Colour(rand.randint(0, 0xFFFFFF))
