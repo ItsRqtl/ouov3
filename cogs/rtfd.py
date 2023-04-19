@@ -30,21 +30,22 @@ class Rtfd(Cog):
     def __init__(self, bot: discord.AutoShardedBot) -> None:
         self.bot = bot
 
-    def escape_md(str: str) -> str:
+    def escape_md(self, string: str) -> str:
         """
         Escape markdown for discord.
 
-        :param str: The string to escape.
-        :type str: str
+        :param string: The string to escape.
+        :type string: str
 
         :return: The escaped string.
         :rtype: str
         """
-        return str.replace("*", "\\*").replace("_", "\\_").replace("`", "\\`").replace("~", "\\~")
+        return (
+            string.replace("*", "\\*").replace("_", "\\_").replace("`", "\\`").replace("~", "\\~")
+        )
 
-    @classmethod
     def get_embeds(
-        cls, data: dict, name: str, url: str, icon: str, locale: str
+        self, data: dict, name: str, url: str, icon: str, locale: str
     ) -> List[discord.Embed]:
         """
         Return a list of Embeds from the given data.
@@ -66,15 +67,15 @@ class Rtfd(Cog):
         results = []
         link_text = I18n.get("rtfd.link_text", locale)
         for i in data["results"]:
-            if i["project"] not in cls.vaild_projects:
+            if i["project"] not in self.vaild_projects:
                 continue
             eb = discord.Embed(
-                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random()
+                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random_color()
             )
             eb.set_author(name=name, url=url, icon_url=icon)
             for j in i["blocks"]:
                 if j["type"] == "domain":
-                    content = cls.escape_md(j["content"])
+                    content = self.escape_md(j["content"])
                     link = f"""\n[[{link_text}]({i["domain"]}{i["path"]}#{j["id"]})]"""
                     if len(content) + len(link) > 1024:
                         content = f"{content[:1020 - len(link)]}..."

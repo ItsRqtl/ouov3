@@ -26,10 +26,11 @@ class Info(Cog):
     info = discord.SlashCommandGroup("info", "查詢資訊", guild_only=True)
 
     @info.command(
+        name="bot",
         descrtiption="View bot information",
         description_localizations={"zh-TW": "查看機器人資訊", "zh-CN": "查看机器人信息"},
     )
-    async def bot(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def bot_command(self, ctx: discord.ApplicationContext) -> discord.Message:
         """
         Slash command to view the bot's information.
 

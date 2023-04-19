@@ -267,7 +267,9 @@ class Translate(Cog):
                 original_lang=(
                     [k for k, v in self.original_lang.items() if v == lang][0]
                     if self.original_lang != ""
-                    else I18n.get("translate.translate.result.original_auto")
+                    else I18n.get(
+                        "translate.translate.result.original_auto", ctx.locale or ctx.guild_locale
+                    )
                 ),
                 target_lang=([k for k, v in self.target_lang.items() if v == target][0]),
             ),  # text="DeepL 翻譯 {original_lang} → {target_lang}",

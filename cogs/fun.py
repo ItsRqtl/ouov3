@@ -174,7 +174,7 @@ class Fun(Cog):
         description_localizations={"zh-TW": "最大值。", "zh-CN": "最大值。"},
         min_value=0,
     )
-    async def random(self, ctx: discord.ApplicationContext, min: int, max: int) -> discord.Message: # pylint: disable=W0622
+    async def random(self, ctx: discord.ApplicationContext, min: int, max: int) -> discord.Message:
         """
         The random command.
 

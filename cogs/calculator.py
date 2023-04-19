@@ -116,7 +116,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="AC", style=discord.ButtonStyle.danger)
     async def all_clear(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the all clear button.
@@ -136,7 +136,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="C", style=discord.ButtonStyle.danger)
     async def clear(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the clear button.
@@ -154,7 +154,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="←", style=discord.ButtonStyle.primary)
     async def backspace(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the backspace button.
@@ -397,7 +397,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="+/-", style=discord.ButtonStyle.primary, row=3)
     async def negate(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the negate button.
@@ -421,9 +421,7 @@ class CalculatorView(discord.ui.View):
         return await self.edit_embed(interaction)
 
     @discord.ui.button(label="?", style=discord.ButtonStyle.primary, row=4)
-    async def help(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def help(self, _: discord.ui.Button, interaction: discord.Interaction) -> discord.Message:
         """
         Handle the help button.
 
@@ -461,9 +459,7 @@ class CalculatorView(discord.ui.View):
         return await self.handle_number(button, interaction)
 
     @discord.ui.button(label=".", style=discord.ButtonStyle.success, row=4)
-    async def dot(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def dot(self, _: discord.ui.Button, interaction: discord.Interaction) -> discord.Message:
         """
         Handle the dot button.
 
@@ -486,7 +482,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="=", style=discord.ButtonStyle.secondary, row=4)
     async def equal(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the equal button.
@@ -511,7 +507,7 @@ class CalculatorView(discord.ui.View):
 
     @discord.ui.button(label="X", style=discord.ButtonStyle.danger, row=4)
     async def close(
-        self, button: discord.ui.Button, interaction: discord.Interaction
+        self, _: discord.ui.Button, interaction: discord.Interaction
     ) -> discord.Message:
         """
         Handle the close button.
