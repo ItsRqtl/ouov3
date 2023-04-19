@@ -78,7 +78,7 @@ class Wikipedia(Cog):
             title=data["title"],
             description=description,
             url=data["content_urls"]["desktop"]["page"],
-            color=Color.random_color(),
+            color=Color.random(),
         ).set_author(
             name=author,
             url=I18n.get("wiki.url", ctx.locale or ctx.guild_locale),
@@ -123,7 +123,7 @@ class Wikipedia(Cog):
             title=data["title"],
             description=data["extract"],
             url=data["content_urls"]["desktop"]["page"],
-            color=Color.random_color(),
+            color=Color.random(),
         ).set_author(
             name=I18n.get("wiki.page.random.author", ctx.locale or ctx.guild_locale),
             url=I18n.get("wiki.url", ctx.locale or ctx.guild_locale),

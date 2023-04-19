@@ -69,7 +69,7 @@ class Rtfd(Cog):
             if i["project"] not in cls.vaild_projects:
                 continue
             eb = discord.Embed(
-                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random_color()
+                title=i["title"], url=f"""{i["domain"]}{i["path"]}""", color=Color.random()
             )
             eb.set_author(name=name, url=url, icon_url=icon)
             for j in i["blocks"]:
