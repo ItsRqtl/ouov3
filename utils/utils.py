@@ -10,6 +10,8 @@ from typing import Union
 
 import aiohttp
 
+__all__ = ["Utils"]
+
 
 class Utils:
     """
