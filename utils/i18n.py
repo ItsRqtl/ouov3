@@ -9,6 +9,8 @@ from __future__ import annotations
 from pyi18n import PyI18n
 from pyi18n.loaders import PyI18nYamlLoader
 
+__all__ = ["I18n"]
+
 
 class I18n:
     """

@@ -10,6 +10,8 @@ import random
 
 import discord
 
+__all__ = ["Embed", "Color"]
+
 
 class Embed:
     """
