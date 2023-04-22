@@ -23,11 +23,12 @@ class CalculatorView(discord.ui.View):
 
     def __init__(self, author_id: int, bot: discord.AutoShardedBot):
         super().__init__()
-        self.author_id = author_id
-        self.bot = bot
-        self.result = self.last_number = "0"
-        self.last_operation = None
-        self.clear_next = False
+        self.author_id: int = author_id
+        self.bot: discord.AutoShardedBot = bot
+        self.result: str = "0"
+        self.last_number: str = "0"
+        self.last_operation: str | None = None
+        self.clear_next: bool = False
 
     def get_locale(self, interaction: discord.Interaction) -> str | None:
         """
@@ -41,36 +42,30 @@ class CalculatorView(discord.ui.View):
         """
         return interaction.locale or interaction.guild_locale
 
-    async def edit_skip(self, interaction: discord.Interaction) -> discord.Message:
+    async def edit_skip(self, interaction: discord.Interaction) -> None:
         """
         Edit the message without changing the embed.
 
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await interaction.response.edit_message()
+        await interaction.response.edit_message()
 
-    async def edit_embed(self, interaction: discord.Interaction) -> discord.Message:
+    async def edit_embed(self, interaction: discord.Interaction) -> None:
         """
         Edit the message with the embed.
 
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         embed = discord.Embed(
             description=f"```{self.result.rjust(30)}```", color=discord.Color.blurple()
         )
-        return await interaction.response.edit_message(embed=embed)
+        await interaction.response.edit_message(embed=embed)
 
     async def handle_number(
         self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    ) -> None:
         """
         Handle the number button.
 
@@ -78,21 +73,18 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        number = button.label
+        number = button.label or "0"
         if self.clear_next or self.result == "0":
             self.clear_next = False
             self.result = number
         else:
             self.result += number
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     async def handle_operation(
         self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    ) -> None:
         """
         Handle the operation button.
 
@@ -100,9 +92,6 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         if self.last_operation is not None:
             op_func = self.ops[self.last_operation]
@@ -112,12 +101,10 @@ class CalculatorView(discord.ui.View):
             self.last_number = self.result
         self.last_operation = button.label
         self.result = "0"
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="AC", style=discord.ButtonStyle.danger)
-    async def all_clear(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def all_clear(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the all clear button.
 
@@ -125,19 +112,14 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         self.result = "0"
-        self.last_number = 0
+        self.last_number = "0"
         self.last_operation = None
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="C", style=discord.ButtonStyle.danger)
-    async def clear(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def clear(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the clear button.
 
@@ -145,17 +127,12 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         self.result = "0"
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="←", style=discord.ButtonStyle.primary)
-    async def backspace(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def backspace(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the backspace button.
 
@@ -163,21 +140,16 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         if self.result == "0":
             return await self.edit_skip(interaction)
         self.result = self.result[:-1]
         if self.clear_next or self.result == "":
             self.result = "0"
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="÷", style=discord.ButtonStyle.secondary)
-    async def divide(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def divide(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the divide button.
 
@@ -185,16 +157,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_operation(button, interaction)
+        await self.handle_operation(button, interaction)
 
     @discord.ui.button(label="1", style=discord.ButtonStyle.success, row=1)
-    async def one(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def one(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the one button.
 
@@ -202,16 +169,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="2", style=discord.ButtonStyle.success, row=1)
-    async def two(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def two(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the two button.
 
@@ -219,16 +181,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="3", style=discord.ButtonStyle.success, row=1)
-    async def three(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def three(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the three button.
 
@@ -236,16 +193,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="×", style=discord.ButtonStyle.secondary, row=1)
-    async def multiply(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def multiply(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the multiply button.
 
@@ -253,16 +205,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_operation(button, interaction)
+        await self.handle_operation(button, interaction)
 
     @discord.ui.button(label="4", style=discord.ButtonStyle.success, row=2)
-    async def four(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def four(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the four button.
 
@@ -270,16 +217,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="5", style=discord.ButtonStyle.success, row=2)
-    async def five(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def five(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the five button.
 
@@ -287,16 +229,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="6", style=discord.ButtonStyle.success, row=2)
-    async def six(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def six(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the six button.
 
@@ -304,16 +241,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="-", style=discord.ButtonStyle.secondary, row=2)
-    async def subtract(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def subtract(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the subtract button.
 
@@ -321,16 +253,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_operation(button, interaction)
+        await self.handle_operation(button, interaction)
 
     @discord.ui.button(label="7", style=discord.ButtonStyle.success, row=3)
-    async def seven(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def seven(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the seven button.
 
@@ -338,16 +265,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="8", style=discord.ButtonStyle.success, row=3)
-    async def eight(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def eight(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the eight button.
 
@@ -355,16 +277,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="9", style=discord.ButtonStyle.success, row=3)
-    async def nine(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def nine(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the nine button.
 
@@ -372,16 +289,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label="+", style=discord.ButtonStyle.secondary, row=3)
-    async def add(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def add(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the add button.
 
@@ -389,16 +301,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_operation(button, interaction)
+        await self.handle_operation(button, interaction)
 
     @discord.ui.button(label="+/-", style=discord.ButtonStyle.primary, row=3)
-    async def negate(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def negate(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the negate button.
 
@@ -406,9 +313,6 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         if self.result == "0":
             return await self.edit_skip(interaction)
@@ -418,12 +322,12 @@ class CalculatorView(discord.ui.View):
             self.result = f"-{self.result}"
         if self.clear_next:
             self.clear_next = False
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="?", style=discord.ButtonStyle.primary, row=4)
     async def help(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+        self, _: discord.ui.Button, interaction: discord.Interaction
+    ) -> discord.Interaction:
         """
         Handle the help button.
 
@@ -433,7 +337,7 @@ class CalculatorView(discord.ui.View):
         :type interaction: discord.Interaction
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction
         """
         locale = self.get_locale(interaction)
         embed = discord.Embed(
@@ -444,9 +348,7 @@ class CalculatorView(discord.ui.View):
         return await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @discord.ui.button(label="0", style=discord.ButtonStyle.success, row=4)
-    async def zero(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def zero(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the zero button.
 
@@ -454,16 +356,11 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
-        return await self.handle_number(button, interaction)
+        await self.handle_number(button, interaction)
 
     @discord.ui.button(label=".", style=discord.ButtonStyle.success, row=4)
-    async def dot(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def dot(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the dot button.
 
@@ -471,23 +368,18 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         if self.clear_next:
             self.result = "0."
             self.clear_next = False
         elif "." in self.result:
-            return await self.edit_skip(interaction)
+            await self.edit_skip(interaction)
         else:
             self.result = f"{self.result}."
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="=", style=discord.ButtonStyle.secondary, row=4)
-    async def equal(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def equal(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the equal button.
 
@@ -495,24 +387,19 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         if not self.last_operation:
-            return await self.edit_skip(interaction)
+            await self.edit_skip(interaction)
         op_func = self.ops[self.last_operation]
         result = op_func(float(self.last_number), float(self.result))
         self.result = str(round(result, 10)).rstrip("0").rstrip(".")
         self.last_number = "0"
         self.last_operation = None
         self.clear_next = True
-        return await self.edit_embed(interaction)
+        await self.edit_embed(interaction)
 
     @discord.ui.button(label="X", style=discord.ButtonStyle.danger, row=4)
-    async def close(
-        self, button: discord.ui.Button, interaction: discord.Interaction
-    ) -> discord.Message:
+    async def close(self, _: discord.ui.Button, interaction: discord.Interaction) -> None:
         """
         Handle the close button.
 
@@ -520,12 +407,9 @@ class CalculatorView(discord.ui.View):
         :type button: discord.ui.Button
         :param interaction: The interaction.
         :type interaction: discord.Interaction
-
-        :return: The edited message.
-        :rtype: discord.Message
         """
         self.stop()
-        return await interaction.response.edit_message(
+        await interaction.response.edit_message(
             content=I18n.get("calculator.closed", self.get_locale(interaction)),
             embed=None,
             view=None,
@@ -542,9 +426,9 @@ class CalculatorView(discord.ui.View):
         :return: Whether the interaction is valid.
         :rtype: bool
         """
-        return interaction.user.id == self.author_id
+        return False if interaction.user is None else interaction.user.id == self.author_id
 
-    async def on_check_failure(self, interaction: discord.Interaction) -> discord.Message:
+    async def on_check_failure(self, interaction: discord.Interaction) -> discord.Interaction:
         """
         Handle the check failure.
 
@@ -552,7 +436,7 @@ class CalculatorView(discord.ui.View):
         :type interaction: discord.Interaction
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: discord.Interaction
         """
         return await interaction.response.send_message(
             I18n.get(
@@ -579,7 +463,7 @@ class CalculatorCog(Cog):
         description="Open a calculator.",
         description_localizations={"zh-TW": "開啟一個計算機。", "zh-CN": "开启一个计算器。"},
     )
-    async def calculator(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def calculator(self, ctx: discord.ApplicationContext) -> None:
         """
         Open a calculator.
 
@@ -587,7 +471,7 @@ class CalculatorCog(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The response message.
-        :rtype: discord.Message
+        :rtype: None
         """
         await ctx.defer()
         msg = await ctx.respond(

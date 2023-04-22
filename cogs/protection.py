@@ -4,6 +4,7 @@ The cog module for event listeners to protect the server from bad things.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 import binascii
 import contextlib
@@ -74,7 +75,8 @@ class Match:
         threat = I18n.get(self.threat_type, locale)
         return I18n.get("protection.urlscan.match", locale, threat=threat, platform=platform)
 
-    def get_matches(data: list) -> List["Match"]:
+    @classmethod
+    def get_matches(cls, data: list) -> List["Match"]:
         """
         Get a list of matches from a list of data.
 
@@ -84,7 +86,7 @@ class Match:
         :return: A list of matches.
         :rtype: List[Match]
         """
-        return [Match(match) for match in data]
+        return [cls(match) for match in data]
 
 
 class Protection(Cog):
@@ -107,8 +109,9 @@ class Protection(Cog):
         """
         Lookup a list of URLs in Google Safe Browsing.
         """
+        key = decouple.config("google_api_key")
         async with aiohttp.ClientSession() as s, s.post(
-            f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={decouple.config('google_api_key')}",
+            f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={key}",
             headers={"Content-Type": "application/json"},
             data=str(
                 {
@@ -221,8 +224,7 @@ class Protection(Cog):
                                 color=Color.invisible(),
                             ),
                         )
-                    finally:
-                        break
+                    break
 
     @Cog.listener("on_message_delete")
     async def ghost_ping(self, message: discord.Message) -> None:

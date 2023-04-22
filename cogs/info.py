@@ -4,6 +4,7 @@ The cog module for the info commands.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 from typing import Union
 
@@ -26,10 +27,13 @@ class Info(Cog):
     info = discord.SlashCommandGroup("info", "查詢資訊", guild_only=True)
 
     @info.command(
+        name="bot",
         descrtiption="View bot information",
         description_localizations={"zh-TW": "查看機器人資訊", "zh-CN": "查看机器人信息"},
     )
-    async def bot(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def bot_command(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Slash command to view the bot's information.
 
@@ -37,7 +41,7 @@ class Info(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         raise NotImplementedError("This command is not implemented yet.")
 
@@ -54,7 +58,7 @@ class Info(Cog):
     )
     async def user(
         self, ctx: discord.ApplicationContext, user: Union[discord.Member, discord.User] = None
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Slash command to view the user's information.
 
@@ -64,7 +68,7 @@ class Info(Cog):
         :type user: Union[discord.Member, discord.User]
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         if not user:
             user = ctx.author
@@ -83,7 +87,7 @@ class Info(Cog):
     )
     async def user_command(
         self, ctx: discord.ApplicationContext, user: Union[discord.Member, discord.User] = None
-    ) -> discord.Message:
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         User command to view the user's information.
 
@@ -93,7 +97,7 @@ class Info(Cog):
         :type user: Union[discord.Member, discord.User]
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         return await self.user(ctx, user)
 
@@ -101,7 +105,9 @@ class Info(Cog):
         description="View guild information",
         description_localizations={"zh-TW": "查看伺服器資訊", "zh-CN": "查看服务器信息"},
     )
-    async def guild(self, ctx: discord.ApplicationContext) -> discord.Message:
+    async def guild(
+        self, ctx: discord.ApplicationContext
+    ) -> discord.Interaction | discord.WebhookMessage:
         """
         Slash command to view the guild's information.
 
@@ -109,7 +115,7 @@ class Info(Cog):
         :type ctx: discord.ApplicationContext
 
         :return: The message sent.
-        :rtype: discord.Message
+        :rtype: discord.Interaction | discord.WebhookMessage
         """
         raise NotImplementedError("This command is not implemented yet.")
 

@@ -4,6 +4,7 @@ Internationalization and localization utilities.
 This file is part of ouoteam/ouov3 which is released under GNU General Public License v3.0.
 See file LISENCE for full license details.
 """
+from __future__ import annotations
 
 from pyi18n import PyI18n
 from pyi18n.loaders import PyI18nYamlLoader
@@ -22,20 +23,20 @@ class I18n:
     i18n_get = i18n_instance.gettext
 
     @classmethod
-    def get(cls, key: str, language: str, **kwargs) -> str:
+    def get(cls, key: str, language: str | None, **kwargs) -> str:
         """
         Get a translated string.
 
         :param key: The key of the string.
         :type key: str
         :param language: The language to get the string in.
-        :type language: str
+        :type language: str | None
         :param kwargs: The arguments to format the string with.
         :type kwargs: dict
 
         :return: The translated string.
         :rtype: str
         """
-        if language not in cls.locales:
+        if language is None or language not in cls.locales:
             language = "en-US"
         return cls.i18n_get(language, key, **kwargs)
