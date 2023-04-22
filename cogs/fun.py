@@ -288,46 +288,46 @@ class Fun(Cog):
         embed.set_footer(text=I18n.get("fun.whatanime.footer", ctx.locale or ctx.guild_locale))
         await ctx.respond(embed=embed, file=discord.File(filename="preview.jpg", fp=preview))
 
-    @discord.slash_command(
-        description="Lengthen a URL.",
-        description_localizations={"zh-TW": "加長短網址。", "zh-CN": "加长短网址。"},
-    )
-    @discord.option(
-        name="url",
-        description="The URL to be lengthened.",
-        description_localizations={"zh-TW": "要加長的網址。", "zh-CN": "要加长的网址。"},
-    )
-    @discord.option(
-        name="mode",
-        description="The mode of the lengthening.",
-        description_localizations={"zh-TW": "加長模式。", "zh-CN": "加长模式。"},
-        choices=[discord.OptionChoice(name=i) for i in ["a", "o"]],
-    )
-    async def lengthen(
-        self, ctx: discord.ApplicationContext, url: str, mode: str = "o"
-    ) -> discord.Message:
-        """
-        The lengthen command.
+    # @discord.slash_command(
+    #     description="Lengthen a URL.",
+    #     description_localizations={"zh-TW": "加長短網址。", "zh-CN": "加长短网址。"},
+    # )
+    # @discord.option(
+    #     name="url",
+    #     description="The URL to be lengthened.",
+    #     description_localizations={"zh-TW": "要加長的網址。", "zh-CN": "要加长的网址。"},
+    # )
+    # @discord.option(
+    #     name="mode",
+    #     description="The mode of the lengthening.",
+    #     description_localizations={"zh-TW": "加長模式。", "zh-CN": "加长模式。"},
+    #     choices=[discord.OptionChoice(name=i) for i in ["a", "o"]],
+    # )
+    # async def lengthen(
+    #     self, ctx: discord.ApplicationContext, url: str, mode: str = "o"
+    # ) -> discord.Message:
+    #     """
+    #     The lengthen command.
 
-        :param ctx: The context of the command.
-        :type ctx: discord.ApplicationContext
-        :param url: The URL to be lengthened.
-        :type url: str
-        :param mode: The mode of the lengthening.
-        :type mode: str
+    #     :param ctx: The context of the command.
+    #     :type ctx: discord.ApplicationContext
+    #     :param url: The URL to be lengthened.
+    #     :type url: str
+    #     :param mode: The mode of the lengthening.
+    #     :type mode: str
 
-        :return: The response message.
-        :rtype: discord.Message
-        """
-        await ctx.defer()
-        url = self.lengthen_url(url, mode)  # TODO: Implement
-        if not url:
-            return await ctx.respond(embed=Embed.error(...))  # TODO: Not valid url
-        if url == -1:
-            return await ctx.respond(embed=Embed.error(...))  # TODO: Cannot relengthen
-        if len(url) > 4090:
-            return await ctx.respond(embed=Embed.error(...))  # TODO: Too long
-        return await ctx.respond(...)  # TODO: Success
+    #     :return: The response message.
+    #     :rtype: discord.Message
+    #     """
+    #     await ctx.defer()
+    #     url = self.lengthen_url(url, mode)  # TODO: Implement
+    #     if not url:
+    #         return await ctx.respond(embed=Embed.error(...))  # TODO: Not valid url
+    #     if url == -1:
+    #         return await ctx.respond(embed=Embed.error(...))  # TODO: Cannot relengthen
+    #     if len(url) > 4090:
+    #         return await ctx.respond(embed=Embed.error(...))  # TODO: Too long
+    #     return await ctx.respond(...)  # TODO: Success
 
 
 def setup(bot: discord.AutoShardedBot) -> None:
